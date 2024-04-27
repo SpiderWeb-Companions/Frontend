@@ -29,9 +29,7 @@ export class TodoItem extends WebComponent {
             <button>Click me</button>
             <p>${this.getAttribute('count')}</p>
             <h1 class="test">Todo Item</h1>
-            
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
+            <a href="">Base</a>
         `
     }
 

@@ -1,3 +1,5 @@
+import { start } from "../_routing/start.js";
+const BaseURL = window.location.href;
 export class WebComponent extends HTMLElement{
 
     constructor() {
@@ -13,6 +15,7 @@ export class WebComponent extends HTMLElement{
             this.setAttribute(key, this.constructor.properties[key]);
         });
         this.setupAttributeChangeCallbacks();
+        this.EnableRouting();
     }
 
     static css;
@@ -55,6 +58,18 @@ export class WebComponent extends HTMLElement{
         });
     }
 
+    EnableRouting() {
+        const anchorTags = this.shadowRoot.querySelectorAll('a');
+        anchorTags.forEach(anchor => {
+            anchor.addEventListener('click', function(event) {
+                event.preventDefault();
+                const href = anchor.getAttribute('href');
+                history.pushState(null, null, `${BaseURL}${href}`);
+                start();
+            });
+        });
+    }
+    
     render() {
         return `
             <h1>Please provide your own defenition for html!!</h1>

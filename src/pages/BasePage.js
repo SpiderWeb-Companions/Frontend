@@ -1,10 +1,9 @@
 import { WebComponent } from "../_wrappers/WebComponent.js";
 import { css } from "../_wrappers/css.js";
 import { html } from "../_wrappers/html.js";
-import { TodoItem } from '../components/TodoITem.js';
 
-export class HomePage extends WebComponent {
-    identifier = 'home-page';
+export class BasePage extends WebComponent {
+    identifier = 'base-page';
     constructor() {
         super();
     }
@@ -31,10 +30,11 @@ export class HomePage extends WebComponent {
 
     render() {
         return html`
-            <todo-item count="100"></todo-item>
+            <h1>SpiderWeb Companions</h1>
+            <a href="/home">Home</a>
         `
     }
 
 }
 
-customElements.define("home-page", HomePage)
+customElements.define("base-page", BasePage)

@@ -1,4 +1,4 @@
-import { routes } from "./routes.js";
+import { routes } from "../routes.js";
 export function render(route) {
     if (routes[route]) {
         const app = document.getElementById('app');
