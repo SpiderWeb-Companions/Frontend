@@ -1,5 +1,11 @@
 import { start } from "../_routing/start.js";
 const BaseURL = window.location.href;
+/**
+ * This is a wrapper for creating web components
+ * The aim of this class is to make creating web components more intuitive
+ * Ie keep all the ugly code in one place so we can write neat code everywhere else 🎨
+ * @returns web component
+ */
 export class WebComponent extends HTMLElement{
 
     constructor() {
@@ -18,10 +24,15 @@ export class WebComponent extends HTMLElement{
         this.EnableRouting();
     }
 
+    /**
+     * @static members
+     * Variables required for styling and component attributes
+     */
     static css;
     static properties = {}
 
     setupAttributeChangeCallbacks() {
+        // TODO: figure this functions logic out for stateful 
         const properties = this.constructor.properties;
         const observedAttributes = Object.keys(properties);
         const attributeChangedCallback = (name, oldValue, newValue) => {
@@ -58,6 +69,10 @@ export class WebComponent extends HTMLElement{
         });
     }
 
+    /**
+     * @listens 
+     * This function is the core of ensuring the appllications routing works as an SPA
+     */
     EnableRouting() {
         const anchorTags = this.shadowRoot.querySelectorAll('a');
         anchorTags.forEach(anchor => {
@@ -70,6 +85,12 @@ export class WebComponent extends HTMLElement{
         });
     }
     
+    /**
+     * @override
+     * This function is just here to ensure something is spit out incase no 
+     * render is defined within a component
+     * @returns html template of app
+     */
     render() {
         return `
             <h1>Please provide your own defenition for html!!</h1>
