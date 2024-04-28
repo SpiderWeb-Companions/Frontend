@@ -31,7 +31,7 @@ export class BasePage extends WebComponent {
     render() {
         return html`
             <h1>SpiderWeb Companions</h1>
-            <a href="/home">Home</a>
+            <a href="home">Home</a>
         `
     }
 
