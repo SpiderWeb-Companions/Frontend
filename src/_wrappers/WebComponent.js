@@ -21,7 +21,6 @@ export class WebComponent extends HTMLElement{
         Object.keys(this.constructor.properties).forEach(key => {
             this.setAttribute(key, this.constructor.properties[key]);
         });
-        this.setupAttributeChangeCallbacks();
         this.EnableRouting();
     }
 
