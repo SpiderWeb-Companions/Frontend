@@ -17,6 +17,7 @@ export class WebComponent extends HTMLElement{
             </style>
             ${this.render()}
         `;
+        // console.log(this.properties);
         Object.keys(this.constructor.properties).forEach(key => {
             this.setAttribute(key, this.constructor.properties[key]);
         });
@@ -30,43 +31,17 @@ export class WebComponent extends HTMLElement{
      */
     static css;
     static properties = {}
+    
+    static get observedAttributes() {
+        let props = [];
+        Object.keys(this.properties).forEach(key => {
+            props.push(key);
+        });
+        return props;
+    }
 
-    setupAttributeChangeCallbacks() {
-        // TODO: figure this functions logic out for stateful 
-        const properties = this.constructor.properties;
-        const observedAttributes = Object.keys(properties);
-        const attributeChangedCallback = (name, oldValue, newValue) => {
-            if (observedAttributes.includes(name)) {
-                this[name] = newValue;
-                this.shadowRoot.innerHTML = `
-                    <style>
-                        ${this.constructor.css}
-                    </style>
-                    ${this.render()}
-                `;
-            }
-        };
-        const observedAttributesProxy = new Proxy({}, {
-            set: function (target, key, value) {
-                attributeChangedCallback(key, target[key], value);
-                return true;
-            }
-        });
-        this.attributeChangedCallback = attributeChangedCallback.bind(observedAttributesProxy);
-        observedAttributes.forEach(attribute => {
-            Object.defineProperty(this, attribute, {
-                get() {
-                    return this.getAttribute(attribute);
-                },
-                set(newValue) {
-                    if (newValue !== null) {
-                        this.setAttribute(attribute, newValue);
-                    } else {
-                        this.removeAttribute(attribute);
-                    }
-                }
-            });
-        });
+    attributeChangedCallback(name, oldValue, newValue) {
+        // console.log(name, oldValue, newValue);
     }
 
     /**
@@ -97,3 +72,4 @@ export class WebComponent extends HTMLElement{
         `
     }
 }
+

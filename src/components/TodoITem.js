@@ -20,9 +20,8 @@ export class TodoItem extends WebComponent {
     `
 
     static properties = {
-        count: { type: Number, value: 0 }
+        count: { type: Number}
     }
-    
 
     render() {
         return html`
