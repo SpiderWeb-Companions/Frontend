@@ -1,4 +1,4 @@
-import { start } from "../_routing/start.js";
+import { navigate } from "../_routing/start.js";
 const BaseURL = window.location.href;
 /**
  * This is a wrapper for creating web components
@@ -53,8 +53,7 @@ export class WebComponent extends HTMLElement{
             anchor.addEventListener('click', function(event) {
                 event.preventDefault();
                 const href = anchor.getAttribute('href');
-                history.pushState(null, null, `${BaseURL}${href}`);
-                start();
+                navigate(href);
             });
         });
     }
