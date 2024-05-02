@@ -1,17 +1,19 @@
 import { routes } from "../routes.js";
-const BaseURL = window.location.href;
-const parts = BaseURL.split('/');
-const firstRoute=parts[3] ?? '' ;
-const domain = `${parts[0]}//${parts[2]}/`;
+import { isAuthenticated, setAccessToken } from '../_authentication/Authentication.js';
+const firstRoute = window.location.pathname;
+const domain = window.location.origin;
+
 /**
  * 
  * @param {*} route either a route defined in the route.js, or a link starting with http for redirect.
  */
 export function navigate(route) {
+    route = route.startsWith('/') ? route.slice(1) : route;
+    let queryParams = window.location.search;
     if (routes[route]) {
         const app = document.getElementById('app');
-        app.innerHTML = `<${routes[route].identifier}></${routes[route].identifier}>`;
-    } else if (route.includes('http')){
+        app.innerHTML = `<${routes[route].identifier} queryparams=${queryParams}></${routes[route].identifier}>`;
+    } else if (route.startsWith('http')){
         window.location.href = route;
     } 
     else {
@@ -22,7 +24,11 @@ export function navigate(route) {
             navigate(''); 
         }
     }
-    history.pushState(null, null, `${domain}${route}`);
+    history.pushState(null, null, `${domain}/${route}`);
 }
-
-navigate(firstRoute);
+let isAuthed = await isAuthenticated()
+if (isAuthed){
+    navigate(firstRoute);
+}else {
+    navigate('login') //TODO: perhaps a navigation param "navigation message" to tell the user why they were navigated would be good here
+}                     // Or perhaps a redirect location for the case of login
