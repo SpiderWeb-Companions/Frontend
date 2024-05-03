@@ -1,9 +1,10 @@
 import { navigate } from "../_routing/start.js";
-const BaseURL = window.location.href;
 /**
  * This is a wrapper for creating web components
  * The aim of this class is to make creating web components more intuitive
  * Ie keep all the ugly code in one place so we can write neat code everywhere else 🎨
+ * 
+ * All of the <a> elements will use SPA routing for any components that extend web components
  * @returns web component
  */
 export class WebComponent extends HTMLElement{

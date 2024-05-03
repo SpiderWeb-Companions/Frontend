@@ -1,6 +1,6 @@
+import { navigate } from "../_routing/start.js";
 import { WebComponent } from "../_wrappers/WebComponent.js";
 import { css } from "../_wrappers/css.js";
-import { html } from "../_wrappers/html.js";
 
 export class TodoItem extends WebComponent {
     identifier = 'todo-item';
@@ -22,13 +22,15 @@ export class TodoItem extends WebComponent {
     static properties = {
         count: { type: Number}
     }
-
+//TODO: Figure out event listeners for components
     render() {
-        return html`
+        return `
             <button>Click me</button>
             <p>${this.getAttribute('count')}</p>
             <h1 class="test">Todo Item</h1>
-            <a href="">Base</a>
+            <a href="/">Base</a>
+            <a href="https://www.google.co.za">Google</a>
+            <button >Click me to go home (WORK IN PROGRESS - DOESN'T WORK YET)</button>
         `
     }
 

@@ -9,10 +9,12 @@ export const isAuthenticated = async () => {
         "Authorization": `Bearer ${accessToken}`
       }
     });
-    return response.status == 200 ;
+    return response.status == 200
 
+  }else{
+    return false
   }
-  return false;
+
 }
 
 export const setAccessToken = async (code) => {
@@ -25,7 +27,6 @@ export const setAccessToken = async (code) => {
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Access-Control-Allow-Origin" : "*"
       }
     });
     if (response){
@@ -33,7 +34,8 @@ export const setAccessToken = async (code) => {
         sessionStorage.setItem('accessToken', body['access_token']);
         navigate('');
     }
-  }
+  } else{
   console.log('failed to set access token');
   navigate('login') ;
+  }
 }
