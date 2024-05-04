@@ -1,13 +1,11 @@
 import { enableRouting } from "../../_routing/start.js";
-import { TodoItem } from "../../components/TodoItem.js";
+import { NavBar } from "../../components/NavBar.js";
 
 export function HomePage(queryString) {
+  const app = document.getElementById("app");
 
-
-    const app = document.getElementById('app');
-
-    app.innerHTML = `
-    <todo-item count="100"></todo-item>
-    `
-enableRouting('a');
+  app.innerHTML = `
+    <nav-bar></nav-bar>
+    `;
+  enableRouting("a");
 }
