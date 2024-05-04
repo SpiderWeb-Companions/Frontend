@@ -3,7 +3,6 @@ import { sendContactForm} from "../../services/contact.js";
 
 export function ContactPage(queryString) {
     const app = document.getElementById('app');
-
     const css = `
         <style>
             main {
@@ -19,6 +18,22 @@ export function ContactPage(queryString) {
                 margin: 0;
                 padding: 0;
             }
+            
+            .title1,
+            .title2 {
+                font-size:4rem;
+            }
+            
+            .title1 {
+                margin: 0;
+                font-weight: bold;
+            }
+            
+            .title2 {
+                margin: 1.5rem 0 5rem;
+                font-weight: normal;
+            }
+            
             form {
                 display: flex;
                 flex-direction: column;
@@ -30,12 +45,14 @@ export function ContactPage(queryString) {
                 display: flex;
                 align-items: center;
                 margin-bottom: 0.8rem;
-                border-bottom: 2px solid white;
+                border-bottom: 0.125rem solid white;
             }
     
             label {
+                font-size: 1.5rem;
                 font-weight: bold;
-                margin-bottom: 5px;
+                margin-bottom: 0.3rem;
+                padding-bottom: 0.4rem;
             }
     
             input,
@@ -43,9 +60,11 @@ export function ContactPage(queryString) {
                 background-color: transparent;
                 color: black;
                 border: none;
-                margin-bottom: 10px;
-                padding: 5px;
+                margin-bottom: 0.625rem;
+                padding: 0.3rem;
                 flex-grow: 1;
+                font-size: 1.5rem;
+                margin-left: 0.5rem ;
             }
             
             textarea {
@@ -58,19 +77,30 @@ export function ContactPage(queryString) {
             }
     
             button {
-                padding: 10px 20px;
-                background-color: black;
-                color: white;
+                width: 13em;
+                padding: 0.8rem 1.3rem;
+                background-color: #A7EBE5;
+                color: #15524D;
+                font-weight: bold;
                 border: none;
                 cursor: pointer;
+                border-radius: 1.875rem;
+                font-size: 1rem;
+            }
+            
+            .center-button {
+                width: 40vw;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         </style>
     `
     app.innerHTML = `
         ${css}
         <main>
-            <h1>Have Some Questions?</h1>
-            <h2>Contact Us</h2>
+            <h1 class="title1">Have Some Questions?</h1>
+            <h1 class="title2">Contact Us</h1>
             <form>
                 <div class="form-group">
                     <label for="name">Name: </label>
@@ -84,11 +114,12 @@ export function ContactPage(queryString) {
     
                 <div class="form-group">
                     <label for="message">Message: </label>
-                    <textarea id="message" name="message" required></textarea>
+                    <input id="message" name="message" required/>  
                 </div>
-
-    
-                <button type="submit">Submit</button>
+                
+                <div class="center-button">
+                    <button type="submit">Send Message</button>
+                </div>
             </form>
         </main>
     `
