@@ -23,6 +23,7 @@ export class WebComponent extends HTMLElement{
             this.setAttribute(key, this.constructor.properties[key]);
         });
         this.EnableRouting();
+        this.listen()
     }
 
     /**
@@ -69,6 +70,10 @@ export class WebComponent extends HTMLElement{
         return `
             <h1>Please provide your own defenition for html!!</h1>
         `
+    }
+
+    listen() {
+
     }
 }
 

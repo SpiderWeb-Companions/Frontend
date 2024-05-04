@@ -31,7 +31,18 @@ export class TodoItem extends WebComponent {
             <a href="/">Base</a>
             <a href="https://www.google.co.za">Google</a>
             <button >Click me to go home (WORK IN PROGRESS - DOESN'T WORK YET)</button>
+            <button id="btn"></button>
         `
+    }
+
+    listen() {
+        const btn = this.shadowRoot.getElementById('btn');
+        btn.addEventListener('click', () => this.hello());
+    }
+
+    hello() {
+        console.log('Hello from todo item');
+
     }
 
 }
