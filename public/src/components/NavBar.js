@@ -107,8 +107,8 @@ export class NavBar extends WebComponent {
                     <ul>
                         <li><a href="/home">Home</a></li>
                         <li><a href="/home">Browse</a></li>
-                        <li><a href="/home">My Profile</a></li>
-                        <li><a href="/home">Contact Us</a></li>
+                        <li><a href="/profile">My Profile</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
                     </ul>
                     <button class="logout">Logout</button>
                 </nav>
