@@ -3,7 +3,6 @@ import { WebComponent } from "../_wrappers/WebComponent.js";
 import { css } from "../_wrappers/css.js";
 
 export class NavBar extends WebComponent {
-  identifier = "nav-bar";
   constructor() {
     super();
   }
@@ -16,13 +15,15 @@ export class NavBar extends WebComponent {
       height: 10vh;
       color: #ffff;
       justify-content: center;
-      padding: 2vh;
+      padding: 0;
     }
+
     .logo {
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     h1 {
       display: flex;
       justify-content: center;
@@ -35,6 +36,7 @@ export class NavBar extends WebComponent {
       color: #ffaebc;
       margin: 0;
     }
+
     nav {
       display: flex;
       justify-content: center;
@@ -42,6 +44,7 @@ export class NavBar extends WebComponent {
       width: 80vw;
       height: 10vh;
     }
+
     ul {
       display: flex;
       gap: 2vw;
@@ -51,6 +54,7 @@ export class NavBar extends WebComponent {
       margin: 0;
       padding: 0;
     }
+
     li {
       display: flex;
       justify-content: center;
@@ -61,15 +65,16 @@ export class NavBar extends WebComponent {
       color: #000000;
       list-style: none;
     }
+
     li:hover {
       color: #ffaebc;
     }
+
     ul li a {
       text-decoration: none;
       color: inherit;
     }
-    .active {
-    }
+
     button {
       width: 12vw;
       height: 6vh;
@@ -84,15 +89,14 @@ export class NavBar extends WebComponent {
       align-items: center;
       border-radius: 2rem;
     }
+
     button:hover {
       cursor: pointer;
     }
-    .logout {
-    }
-    .back {
-    }
   `;
   // is there a way to determine the current url/page we are on ?
+  // yes
+  // window.location.href.split("/")[window.location.href.split("/").length - 1]
   static properties = {};
   render() {
     return `
