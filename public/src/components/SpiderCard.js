@@ -10,10 +10,12 @@ export class SpiderCard extends WebComponent {
     static css = css`
         .card-class {
             border: 0.05em solid #ccc;
-            margin: 0.5em;
+            //margin: 0.5em;
             border-radius: 1em;
             width: 100%;
             min-width: 16.25rem;
+            min-height: 15rem;
+            max-height: 15rem;
             text-align: center;
             transition: transform 0.1s ease-in-out;
             box-shadow: 0 0.2em 0.2em rgba(0, 0, 0, 0.3);
@@ -25,7 +27,8 @@ export class SpiderCard extends WebComponent {
         }
 
         .card-content {
-            padding: 0.5em 0.75em;
+            //padding: 0.5em 0.75em;
+            //padding: 0;
         }
 
         .img-box {
@@ -33,8 +36,9 @@ export class SpiderCard extends WebComponent {
         }
 
         .images {
-            max-width: 100%;
-            height: auto;
+            width: auto;
+            //height: auto;
+            height: 6rem;
         }
 
         p {
