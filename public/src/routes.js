@@ -3,11 +3,13 @@ import { HomePage } from "./pages/Home/HomePage.js";
 import { LoginPage } from "./pages/Login/LoginPage.js";
 import { ContactPage } from "./pages/Contact/ContactPage.js";
 import { ProfilePage } from "./pages/Profile/Profile.js";
+import { SpiderList } from "./pages/SpiderList/SpiderListPage.js";
 
 export const routes = {
     '': BasePage,
     'home': HomePage,
     'login': LoginPage,
     'contact': ContactPage,
-    'profile': ProfilePage
+    'profile': ProfilePage,
+    'spiderlist' : SpiderList,
 }
