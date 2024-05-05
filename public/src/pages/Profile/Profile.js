@@ -1,5 +1,5 @@
 import { enableRouting } from "../../_routing/start.js";
-import { sendContactForm} from "../../services/contact.js";
+import { getSpiders } from "../../services/profile.js";
 
 export async function ProfilePage(queryString) {
     // Grab from function
@@ -7,6 +7,9 @@ export async function ProfilePage(queryString) {
     const email = 'placeholder@gmail.com';
     const name = 'John Doe';
     const profilePic = 'https://via.placeholder.com/150';
+    // getSpiders("admin");
+    const spiderArray = await getSpiders("admin");
+    console.log(spiderArray);
 
     const app = document.getElementById('app');
     const css = `
@@ -88,9 +91,17 @@ export async function ProfilePage(queryString) {
               font-weight: normal;
               font-family: "DM Sans", sans-serif;
             } 
+            
+            .spiders-container {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                flex-wrap: wrap;
+                width: 100%;
+                height: 100%;
+            }
         </style>
     `
-    const spiders  = [1,2,3];
     app.innerHTML = `
         ${css}
         <main>
@@ -106,6 +117,15 @@ export async function ProfilePage(queryString) {
               </figure>
             </section>
             <section class="spiders">
+                <h2>My Spiders</h2>
+                <div class="spiders-container">
+                    ${spiderArray.map(spider => {
+                        return `<div class="spiders-card">
+                            <h3>${spider.spider_name}</h3>
+                            <p>${spider.species_name}</p>
+                        </div>`
+                    })}
+                </div>
             </section>
         </main>
     `
