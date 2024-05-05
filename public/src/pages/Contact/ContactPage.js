@@ -22,6 +22,7 @@ export function ContactPage(queryString) {
             .title1,
             .title2 {
                 font-size:4rem;
+                 font-family: "DM Sans", sans-serif;
             }
             
             .title1 {
@@ -53,11 +54,13 @@ export function ContactPage(queryString) {
                 font-weight: bold;
                 margin-bottom: 0.3rem;
                 padding-bottom: 0.4rem;
+                font-family: "DM Sans", sans-serif;
             }
     
             input,
             textarea {
                 background-color: transparent;
+                font-family: "DM Sans", sans-serif;
                 color: black;
                 border: none;
                 margin-bottom: 0.625rem;
