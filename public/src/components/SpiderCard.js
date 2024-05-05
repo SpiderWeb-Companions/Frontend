@@ -13,24 +13,25 @@ export class SpiderCard extends WebComponent {
             margin: 0.5em;
             border-radius: 1em;
             width: 100%;
+            min-width: 16.25rem;
             text-align: center;
             transition: transform 0.1s ease-in-out;
-            box-shadow: 0em 0.2em 0.2em
-                rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0.2em 0.2em rgba(0, 0, 0, 0.3);
+            background-color: #FFFFFF;
         }
-        
+
         .card-class:hover {
             transform: scale(1.1);
         }
-        
+
         .card-content {
             padding: 0.5em 0.75em;
         }
-        
+
         .img-box {
             margin: 0.5em;
         }
-        
+
         .images {
             max-width: 100%;
             height: auto;
@@ -39,7 +40,7 @@ export class SpiderCard extends WebComponent {
         p {
             font-size: 1em;
         }
-         
+
         h2 {
             font-size: 1.5em;
         }
@@ -47,22 +48,22 @@ export class SpiderCard extends WebComponent {
         .status-pill {
             position: relative;
             width: 6.5em;
-            margin: 0 0 0 auto; 
+            margin: 0 0 0 auto;
             padding: 0.4em 0.5em;
             border-radius: 0 1em;
             font-weight: bold;
         }
-        
+
         .status-pending {
             background-color: #abc0ed;
             color: #193269;
         }
-        
+
         .status-available {
             background-color: #a7ebc3;
             color: #1d6c3d;
         }
-        
+
         .status-adopted {
             background-color: #ffaebc;
             color: #541520;
@@ -84,7 +85,7 @@ export class SpiderCard extends WebComponent {
                 <h2>${this.getAttribute('spider-name')}</h2>
                 <p>${this.getAttribute('species')}</p>
                 <section class='img-box'>
-                    <img class='images' src=${this.getAttribute('photo')}></img>
+                    <img class='images' src=${this.getAttribute('photo')}/>
                 </section>
             </section>
         </article>`
@@ -92,4 +93,4 @@ export class SpiderCard extends WebComponent {
 
 }
 
-customElements.get('spider-card') || customElements.define("spider-card", SpiderCard)
+customElements.define("spider-card", SpiderCard)
