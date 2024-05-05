@@ -3,7 +3,7 @@ import { HomePage } from "./pages/Home/HomePage.js";
 import { LoginPage } from "./pages/Login/LoginPage.js";
 import { ContactPage } from "./pages/Contact/ContactPage.js";
 import { ProfilePage } from "./pages/Profile/Profile.js";
-import { SpiderList } from "./pages/SpiderList/SpiderListPage.js";
+import { SpiderListPage } from "./pages/SpiderList/SpiderListPage.js";
 
 export const routes = {
     '': BasePage,
@@ -11,5 +11,5 @@ export const routes = {
     'login': LoginPage,
     'contact': ContactPage,
     'profile': ProfilePage,
-    'spiderlist' : SpiderList,
+    'browse' : SpiderListPage,
 }
