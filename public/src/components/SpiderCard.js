@@ -70,7 +70,10 @@ export class SpiderCard extends WebComponent {
     `
 
     static properties = {
-        count: { type: Number}
+        'adoption-status' : {type : String},
+        'spider-name' : {type: String},
+        'species' : {type: String},
+        'photo' : {type: String},
     }
 
     render() {
@@ -78,7 +81,7 @@ export class SpiderCard extends WebComponent {
         `<article class='card-class'>
             <p class = "status-pill status-${this.getAttribute('adoption-status').toLowerCase()}">${this.getAttribute('adoption-status')}</p>
             <section class="card-content">
-                <h2>${this.getAttribute('name')}</h2>
+                <h2>${this.getAttribute('spider-name')}</h2>
                 <p>${this.getAttribute('species')}</p>
                 <section class='img-box'>
                     <img class='images' src=${this.getAttribute('photo')}></img>
@@ -89,4 +92,4 @@ export class SpiderCard extends WebComponent {
 
 }
 
-customElements.define("spider-card", SpiderCard)
+customElements.get('spider-card') || customElements.define("spider-card", SpiderCard)
