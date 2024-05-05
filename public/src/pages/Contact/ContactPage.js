@@ -6,8 +6,8 @@ export function ContactPage(queryString) {
     const css = `
         <style>
             main {
-                min-height: 100vh;
-                max-height: 100vh;
+                min-height: 90vh;
+                max-height: 90vh;
                 background: rgb(255,174,188);
                 background: linear-gradient(0deg, rgba(255,174,188,1) 0%, rgba(255,255,255,1) 80%);
                 height: 100%;
