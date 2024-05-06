@@ -104,6 +104,54 @@ export async function ProfilePage(queryString) {
                 height: 100%;
                 margin: 0;
                 padding: 0;
+                max-height: 100%;
+                overflow-y: auto;
+                gap: 1rem; 
+            }
+            
+            .spiders-wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                height: 45vh;
+                overflow: hidden;
+            }
+            
+            .spiders h2 {
+                align-self: flex-start;
+                color: #FEFEFE;
+                font-weight: bold;
+                font-size: 2rem;
+                padding: 0;
+                margin: 0.5rem 0 1rem 1rem;
+            }
+            
+            .spiders-container::-webkit-scrollbar {
+                width: 0.75rem; 
+            }
+            
+            .spiders-container::-webkit-scrollbar-track {
+                background-color: #FFAEBC; 
+                border-radius: 0.375rem;
+            }
+            
+            .spiders-container::-webkit-scrollbar-thumb {
+                background-color: #B1AFF2; 
+                border-radius: 0.375rem;
+            }
+            
+            .spiders-container::-webkit-scrollbar-thumb:hover {
+                background-color: #B1AFF2;
+            }
+            
+            .spiders-container {
+                scrollbar-width: thin;
+                scrollbar-color: #B1AFF2 #FFAEBC; 
+            }
+            
+            .spiders-container::-webkit-scrollbar-button {
+                display: none;
             }
         </style>
     `
@@ -122,16 +170,26 @@ export async function ProfilePage(queryString) {
               </figure>
             </section>
             <section class="spiders">
-                <h2>My Spiders</h2>
-                <div class="spiders-container">
-                    ${spiderArray.map(spider => {
-                        return `<spider-card 
-                                adoption-status="${spider.adoption_status}"  
-                                spider-name="${spider.spider_name}" 
-                                species="${spider.species_name}"  
-                                photo="${spider.spider_photo}"
-                                ></spider-card>`
-                    }).join('')}
+                <div class="spiders-wrapper">
+                    <h2>My Spiders</h2>
+                    <div class="spiders-container">
+                        ${spiderArray.map(spider => {
+                        return `<spider-card
+                                        adoption-status="${spider.adoption_status}"
+                                        spider-name="${spider.spider_name}"
+                                        species="${spider.species_name}"
+                                        photo="${spider.spider_photo}"
+                                        ></spider-card>`
+                        }).join('')}
+                        ${spiderArray.map(spider => {
+                        return `<spider-card
+                                        adoption-status="${spider.adoption_status}"
+                                        spider-name="${spider.spider_name}"
+                                        species="${spider.species_name}"
+                                        photo="${spider.spider_photo}"
+                                        ></spider-card>`
+                        }).join('')}
+                    </div>
                 </div>
             </section>
         </main>
