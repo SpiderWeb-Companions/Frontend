@@ -8,6 +8,7 @@ export class SpiderCard extends WebComponent {
         super();
     }
     static css = css`
+        <style>
         .card-class {
             border: 0.05em solid #ccc;
             //margin: 0.5em;
@@ -72,6 +73,7 @@ export class SpiderCard extends WebComponent {
             background-color: #ffaebc;
             color: #541520;
         }
+        </style>
     `
 
     static properties = {
@@ -81,20 +83,41 @@ export class SpiderCard extends WebComponent {
         'photo' : {type: String},
     }
 
-    render() {
-        return html
-        `<article class='card-class'>
-            <p class = "status-pill status-${this.getAttribute('adoption-status').toLowerCase()}">${this.getAttribute('adoption-status')}</p>
-            <section class="card-content">
-                <h2>${this.getAttribute('spider-name')}</h2>
-                <p>${this.getAttribute('species')}</p>
-                <section class='img-box'>
-                    <img class='images' src=${this.getAttribute('photo')}/>
+    static get template() {
+        const template = document.createElement('template');
+        template.innerHTML = `
+            ${SpiderCard.css}
+            <article class='card-class'>
+                <p class="status-pill"></p>
+                <section class="card-content">
+                    <h2 id="spider-name"></h2>
+                    <p id="species"></p>
+                    <section class='img-box'>
+                        <img class='images' />
+                    </section>
                 </section>
-            </section>
-        </article>`
+            </article>
+        `;
+        return template;
+    }
+
+    render() {
+        const statusPill = this.shadowRoot.querySelector('.status-pill');
+        const adoptionStatus = this.getAttribute('adoption-status');
+        statusPill.innerText = adoptionStatus;
+        statusPill.classList.add(`status-${adoptionStatus.toLowerCase()}`);
+
+        const spiderName = this.shadowRoot.querySelector('#spider-name');
+        spiderName.innerText = this.getAttribute('spider-name');
+
+        const speciesInfo = this.shadowRoot.querySelector('#species');
+        speciesInfo.innerText = this.getAttribute('species');
+
+        const img = this.shadowRoot.querySelector('img');
+        img.src = this.getAttribute('photo');
     }
 
 }
+
 
 customElements.define("spider-card", SpiderCard)
