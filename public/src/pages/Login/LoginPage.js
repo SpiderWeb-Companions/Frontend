@@ -1,6 +1,6 @@
 import { css } from "../../_wrappers/css.js";
 import { html } from "../../_wrappers/html.js";
-import { setAccessToken, isAuthenticated} from "../../_authentication/Authentication.js"
+import { setAccessToken, isAuthenticated, getUserDetails} from "../../_authentication/Authentication.js"
 import { enableRouting } from "../../_routing/start.js";
 
 
@@ -26,8 +26,10 @@ import { enableRouting } from "../../_routing/start.js";
                 <h2>Waiting for authorisation</h2>
             `
         } else if (authenticated){
+            let userInfo = await getUserDetails();
             app.innerHTML =  html`
             <h1>You've been successfully authenticated!!</h1>
+            <p> ${userInfo.name} </p>
             `
         }else{
 
