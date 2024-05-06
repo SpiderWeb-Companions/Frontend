@@ -1,16 +1,20 @@
 import { enableRouting } from "../../_routing/start.js";
 import { getSpiders } from "../../services/profile.js";
 import { SpiderCard } from "../../components/SpiderCard.js";
+import { getUserDetails } from "../../_authentication/Authentication.js";
 
 export async function ProfilePage(queryString) {
     // Grab from function
     // Coming soon...
+    // const user = await getUserDetails();
+    // const email = user.email;
+    // const name = user.name;
+    // const profilePic = user.picture;
     const email = 'placeholder@gmail.com';
     const name = 'John Doe';
     const profilePic = 'https://via.placeholder.com/150';
     const spiderArray = await getSpiders("admin");
 
-    const app = document.getElementById('app');
     const css = `
         <style>
             main {
@@ -23,6 +27,7 @@ export async function ProfilePage(queryString) {
                 align-items: center;
                 margin: 0;
                 padding: 0;
+                overflow: hidden;
             }
             
             .profile,
@@ -107,6 +112,7 @@ export async function ProfilePage(queryString) {
                 max-height: 100%;
                 overflow-y: auto;
                 gap: 1rem; 
+                margin-bottom: 1.4rem;
             }
             
             .spiders-wrapper {
@@ -153,21 +159,60 @@ export async function ProfilePage(queryString) {
             .spiders-container::-webkit-scrollbar-button {
                 display: none;
             }
+            .profile {
+              background-color: #FEFEFE;
+              padding: 1rem;
+            }
+            
+            .profile-container {
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+            }
+
+            .profile-info h2 {
+              margin: 0;
+              font-size: 1.5rem;
+              font-weight: 500;
+              font-family: "DM Sans", sans-serif;
+              padding: 0;
+            }
+            
+            .profile-info p {
+              text-decoration: none;
+              font-size: 1.2rem;
+              padding: 0;
+              margin: 0;
+              font-weight: normal;
+              font-family: "DM Sans", sans-serif;
+            }
+            
+            @media (max-width: 480px) {
+              .profile-container {
+                flex-direction: column;
+                align-items: center;
+              }
+              .profile-pic {
+                  width: 10rem;
+                  height: 10rem;
+                  border-radius: 50%;
+                  overflow: hidden;
+              }
+            }
         </style>
-    `
-    app.innerHTML = `
-        ${css}
+    `;
+    const html = `
         <main>
             <section class="profile">
-               <figure class="profile-container">
+              <div class="profile-container">
                 <div class="profile-pic">
-                  <img src="${profilePic}" alt="Profile Picture">
+                  <img src="${profilePic}">
                 </div>
-                <figcaption class="profile-info">
+                <div class="profile-info">
                   <h2>${name}</h2>
                   <p>${email}</p>
-                </figcaption>
-              </figure>
+                </div>
+              </div>
             </section>
             <section class="spiders">
                 <div class="spiders-wrapper">
@@ -193,7 +238,11 @@ export async function ProfilePage(queryString) {
                 </div>
             </section>
         </main>
-    `
-    enableRouting('a')
+    `;
+    const app = document.getElementById('app');
+    app.innerHTML = "";
+    app.appendChild(new DOMParser().parseFromString(html, 'text/html').body.firstChild);
+    app.appendChild(new DOMParser().parseFromString(css, 'text/html').head.firstChild);
+    enableRouting('a');
 
 }

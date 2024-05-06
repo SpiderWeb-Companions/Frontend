@@ -2,7 +2,6 @@ import { enableRouting } from "../../_routing/start.js";
 import { sendContactForm} from "../../services/contact.js";
 
 export function ContactPage(queryString) {
-    const app = document.getElementById('app');
     const css = `
         <style>
             main {
@@ -98,9 +97,8 @@ export function ContactPage(queryString) {
                 justify-content: center;
             }
         </style>
-    `
-    app.innerHTML = `
-        ${css}
+    `;
+    const html = `
         <main>
             <h1 class="title1">Have Some Questions?</h1>
             <h1 class="title2">Contact Us</h1>
@@ -119,13 +117,16 @@ export function ContactPage(queryString) {
                     <label for="message">Message: </label>
                     <input id="message" name="message" required/>  
                 </div>
-                
                 <div class="center-button">
                     <button type="submit">Send Message</button>
                 </div>
             </form>
         </main>
-    `
+    `;
+    const app = document.getElementById('app');
+    app.innerHTML = '';
+    app.appendChild(new DOMParser().parseFromString(html, 'text/html').body.firstChild);
+    app.appendChild(new DOMParser().parseFromString(css, 'text/html').head.firstChild);
     enableRouting('a')
 
     const form = document.querySelector('form');
