@@ -1,11 +1,16 @@
-export async function getSpiders(page) {
+export async function getSpiders(page, name, spiderSpecies, adoptionStatus) {
     const response = await fetch(`${API_ENDPOINT}/api/all/spiders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Accept': '*/*'
         },
-        body: JSON.stringify({ limit: 3 })
+        body: JSON.stringify({ 
+            limit: 3,
+            search: name,
+            species: spiderSpecies,
+            status: adoptionStatus
+        })
     });
 
     if (!response.ok) {

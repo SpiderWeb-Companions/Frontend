@@ -8,13 +8,16 @@ export class SpiderCard extends WebComponent {
         super();
     }
     static css = css`
-        <style>
-        .card-class {
+    <style>
+        main {
+            font-family: "DM Sans", sans-serif;
             border: 0.05em solid #ccc;
             //margin: 0.5em;
+            margin: 0.8em 0 1em 0;
             border-radius: 1em;
             width: 100%;
             min-width: 16.25rem;
+            max-width: 18rem;
             min-height: 15rem;
             max-height: 15rem;
             text-align: center;
@@ -23,7 +26,7 @@ export class SpiderCard extends WebComponent {
             background-color: #FFFFFF;
         }
 
-        .card-class:hover {
+        main:hover {
             transform: scale(1.1);
         }
 
@@ -87,7 +90,7 @@ export class SpiderCard extends WebComponent {
         const template = document.createElement('template');
         template.innerHTML = `
             ${SpiderCard.css}
-            <article class='card-class'>
+            <main>
                 <p class="status-pill"></p>
                 <section class="card-content">
                     <h2 id="spider-name"></h2>
@@ -96,7 +99,7 @@ export class SpiderCard extends WebComponent {
                         <img class='images' />
                     </section>
                 </section>
-            </article>
+            </main>
         `;
         return template;
     }
