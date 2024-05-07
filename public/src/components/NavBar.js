@@ -11,11 +11,12 @@ export class NavBar extends WebComponent {
     header {
       display: flex;
       flex-direction: row;
-      width: 100vw;
-      height: 10vh;
+      max-width: 100vw;
+      max-height: 10vh;
+      min-height: 10vh;
       color: #ffff;
       justify-content: center;
-      padding: 0;
+      padding: 1vh;
     }
 
     .logo {
@@ -106,7 +107,7 @@ export class NavBar extends WebComponent {
                 <nav>
                     <ul>
                         <li><a href="/home">Home</a></li>
-                        <li><a href="/home">Browse</a></li>
+                        <li><a href="/spiderlist">Browse</a></li>
                         <li><a href="/profile">My Profile</a></li>
                         <li><a href="/contact">Contact Us</a></li>
                     </ul>
