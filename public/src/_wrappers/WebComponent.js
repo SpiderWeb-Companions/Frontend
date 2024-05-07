@@ -12,19 +12,17 @@ export class WebComponent extends HTMLElement{
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.shadowRoot.innerHTML = `
-            <style>
-                ${this.constructor.css}
-            </style>
-            ${this.render()}
-        `;
-        // console.log(this.properties);
+        // Last minute spec additions fucking suck 😭
+        this.shadowRoot.appendChild(this.constructor.template.content.cloneNode(true));
+        this.render();
         Object.keys(this.constructor.properties).forEach(key => {
             this.setAttribute(key, this.constructor.properties[key]);
         });
         this.EnableRouting();
-        this.listen()
+        this.listen();
     }
+
+    static template = document.createElement('template');
 
     /**
      * @static members
@@ -66,14 +64,8 @@ export class WebComponent extends HTMLElement{
      * render is defined within a component
      * @returns html template of app
      */
-    render() {
-        return `
-            <h1>Please provide your own defenition for html!!</h1>
-        `
-    }
+    render() {}
 
-    listen() {
-
-    }
+    listen() {}
 }
 

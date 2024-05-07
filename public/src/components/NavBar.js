@@ -8,6 +8,7 @@ export class NavBar extends WebComponent {
   }
   // css is not very responsive let - will fix later when I finish the component
   static css = css`
+    <style>
     header {
       display: flex;
       flex-direction: row;
@@ -94,13 +95,19 @@ export class NavBar extends WebComponent {
     button:hover {
       cursor: pointer;
     }
+    </style>
   `;
   // is there a way to determine the current url/page we are on ?
   // yes
   // window.location.href.split("/")[window.location.href.split("/").length - 1]
   static properties = {};
   render() {
-    return `
+  }
+
+  static get template() {
+    const template = document.createElement('template');
+    template.innerHTML = `
+            ${NavBar.css}
             <header>
                 <img class="logo" src="/assets/logo.svg" alt="Logo">
                 <h1>SpiderWeb Companions</h1>
@@ -115,6 +122,7 @@ export class NavBar extends WebComponent {
                 </nav>
             </header>
         `;
+    return template;
   }
 }
 
