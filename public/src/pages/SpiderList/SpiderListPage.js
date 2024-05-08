@@ -6,7 +6,7 @@ import { getSpiders, getAdoptionStatuses, getSpecies } from "../../services/spid
 export async function SpiderListPage(queryString) {
 
     let search = "", species = "", status = "";
-    var spiderArray = await getSpiders(0,search,species,status);
+    let spiderArray = await getSpiders(0,search,species,status);
     const speciesArray = await getSpecies();
     const statusArray = await getAdoptionStatuses();  
     
