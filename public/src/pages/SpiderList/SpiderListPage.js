@@ -1,74 +1,112 @@
 import { html } from "../../_wrappers/html.js";
 import { enableRouting } from "../../_routing/start.js";
+import { SpiderCard } from "../../components/SpiderCard.js";
+import { getSpiders, getAdoptionStatuses, getSpecies } from "../../services/spiders.js";
 
-export async function SpiderList(queryString) {
-    const documentStyles = `
+export async function SpiderListPage(queryString) {
+
+    let search = "", species = "", status = "";
+    let spiderArray = await getSpiders(0,search,species,status);
+    const speciesArray = await getSpecies();
+    const statusArray = await getAdoptionStatuses();  
+    
+    async function populateSpiders() {   
+        spiderArray = await getSpiders(0,search,species,status);
+        const spiders = document.getElementById('spiders-container');
+        spiders.innerHTML = "";
+        spiderArray.forEach(function(spider, index, array) {
+            spiders.appendChild(new DOMParser().parseFromString(
+                `<spider-card 
+                    adoption-status="${spider.adoptionStatus}"  
+                    spider-name="${spider.name}" 
+                    species="${spider.species}"  
+                    photo="${spider.photo}"
+                    ></spider-card>`
+                , 'text/html').body.firstChild);
+        });
+    }
+
+    const css = `
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-        * {
+        main {
+            font-family: "DM Sans", sans-serif;
+            min-height: 90vh;
+            max-height: 90vh;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: "DM Sans", sans-serif;
-            font-size: 1em;
-        }
-        
-        body {
+            overflow: hidden;
+            flex-wrap: wrap;
+            align-items: stretch;
+            width: 100%;
+        } 
+
+        .spiders {
+            height: 100%;
+            max-height: 80vh;
+            min-height: 80vh;
+            width: 100vw;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 1em;
+            // justify-content: center;
+            // align-items: center;
+        }
+        
+        .spiders-wrapper {
+            display: flex;
+            flex-direction: column;
+            // align-items: center;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
 
-        main {
-            height: 100%;
-            padding: 0 10%
-        }
-        
-        .flex-container {
+        .spiders-container {
             display: flex;
-            flex-direction: column;
+            justify-content: space-evenly;
+            // align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            max-height: 100%;
+            overflow-y: auto;
+            gap: 1rem; 
+        }
+
+        .filter-container {
+            padding-left: 5vw;
+            flex-direction: row;
+            color: #898989;
+            font-size: 0.9em;
+            height: 100%;
+            max-height: 10vh;
+            min-height: 10vh;
+            display: flex;
             flex-wrap: wrap;
             align-items: stretch;
             width: 100%;
         }
-        
-        #card-holder {
-            margin: 3em 0;
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(
-                auto-fill,
-                minmax(15.5em, 1fr)
-            );
-            grid-gap: 2em;
-        }
 
-        #card-filters {
-            flex-direction: row;
-            color: #898989;
-            font-size: 0.9em;
-        }
-
-        #card-filters section {
+        .filter-container section {
             padding: 0 0.5em;
         }
 
-        #card-filters section select {
+        .filter-container section select {
             width: 15em;
         }
 
-        #card-filters section input {
-            width: 20em;
+        .filter-container section input {
+            width: 18em;
         }
-        
-        p {
-            font-size: 1em;
-        }
-        
-        h2 {
-            font-size: 1.5em;
+
+        .card-filter {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
         }
 
         .filter-label {
@@ -86,133 +124,89 @@ export async function SpiderList(queryString) {
             color: #898989;
             border: 0.05em solid #ccc;
             border-radius: 1em;
+            font-size: 1em;
         }
 
-        #search {
+        .search {
             padding-left: 2.75em;
-            background-image: url(magnifying-glass.svg);
+            background-image: url(../../../assets/search.svg);
             background-size:auto;
             background-repeat: no-repeat;
             background-position: 0.75em center;  
         }
-
-        .card-class {
-            border: 0.05em solid #ccc;
-            margin: 0.5em;
-            border-radius: 1em;
-            width: 100%;
-            text-align: center;
-            transition: transform 0.1s ease-in-out;
-            box-shadow: 0em 0.2em 0.2em
-                rgba(0, 0, 0, 0.3);
+        
+        p {
+            font-size: 1em;
+        }
+        
+        h2 {
+            font-size: 1.5em;
         }
 
-        .card-class:hover {
-            transform: scale(1.1);
-        }
     </style>`
-    
-    const app = document.getElementById('app');  
-    app.innerHTML = html
-    `${documentStyles}
-    <main id="main" class="flex-container">
-        <form id="card-filters" class="flex-container">
-            <section class="flex-item">
-                <label class="flex-container filter-label">Name</label>
-                <input id = "search" name = "search" type="text" placeholder="Search" class="filter-control">
+     
+    const html = `
+    <main id="main">
+        <form id="card-filters" class="filter-container">
+            <section class="card-filter">
+                <label class="filter-label">Name</label>
+                <input id="search" name="search" type="text" placeholder="Search" class="search filter-control">
             </section>
-            <section class="flex-item">
-                <label class="flex-container filter-label">Age</label>
-                <select name="age" id="age" class="filter-control"></select>
+            <section class="card-filter">
+                <label class="filter-label">Species</label>
+                <select id="species" name="species" class="filter-control">
+                    <option value="" selected>Any</option>
+                    ${speciesArray.map(species => {
+                        return `<option value="${species.SpeciesName}">${species.SpeciesName}</option>`;
+                    }).join('')}
+                </select>
             </section>
-            <section class="flex-item">
-                <label class="flex-container filter-label">Species</label>
-                <select name="species" id="species" class="filter-control"></select>
-            </section>
-            <section class="flex-item">
-                <label class="flex-container filter-label">Adoption Status</label>
-                <select name="adoption-status" id="adoption-status" class="filter-control"></select>
+            <section class="card-filter">
+                <label class="filter-label">Adoption Status</label>
+                <select id="status" name="adoption-status" class="filter-control">
+                    <option value="" selected>Any</option>
+                    ${statusArray.map(status => {
+                        const word = status.status;
+                        const adoptionStatus = word.charAt(0).toUpperCase() + word.slice(1);
+                        return `<option value="${status.status}">${adoptionStatus}</option>`;
+                    }).join('')}
+                </select>
             </section>
         </form>  
 
-        <section class="flex-container">
-            <section id="card-holder" class=" flex-container"></section>
+        <section class="spiders">
+        <section class="spiders-wrapper">
+            <section id="spiders-container" class="spiders-container">
+                ${spiderArray.map(spider => {
+                    return `<spider-card 
+                            adoption-status="${spider.adoptionStatus}"  
+                            spider-name="${spider.name}" 
+                            species="${spider.species}"  
+                            photo="${spider.photo}"
+                            ></spider-card>`
+                }).join('')}
+            </section>
+        </section>
         </section>
     </main>`
 
-    const status_filter = document.getElementById('adoption-status');
-    fetch('http://52.30.87.179/api/status')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            status_filter.innerHTML =  `<option value="any" selected>Any</option>` + data
-            .map((item) => {
-                var word = item.status;
-                const status = word.charAt(0).toUpperCase() + word.slice(1);
-                return (
-                    `<option value="${item.status}">${status}</option>`
-                );
-            }).join("");
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
+    const app = document.getElementById('app');
+    app.innerHTML = "";
+    app.appendChild(new DOMParser().parseFromString(html, 'text/html').body.firstChild);
+    app.appendChild(new DOMParser().parseFromString(css, 'text/html').head.firstChild);
+    
+    const speciesElement = document.getElementById('species');
+    const statusElement = document.getElementById('status');
 
-    const species_filter = document.getElementById('species');
-    fetch('http://52.30.87.179/api/species')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            species_filter.innerHTML =  `<option value="any" selected>Any</option>` + data
-            .map((item) => {
-                return (
-                    `<option value="${item.SpeciesName}">${item.SpeciesName}</option>`
-                );
-            }).join("");
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-    
-    
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ limit: 3 })
-    };
-    
-    const card_holder = document.getElementById('card-holder');
+    speciesElement.addEventListener("change", function() { 
+        species = document.getElementById('species').value;
+        populateSpiders();
+    }, false);
 
-    fetch('http://52.30.87.179/api/all/spiders', requestOptions)
-        .then(response => {
-            // Check if the request was successful
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            // Parse the JSON response
-            return response.json();
-        })
-        .then(data => {
-            card_holder.innerHTML = data
-            .map((item) => {
-                const adoptionStatus = item.adoptionStatus.charAt(0).toUpperCase() + item.adoptionStatus.slice(1);
-                return (
-                    `<spider-card class="card-class" spider-name="${item.name}" species="${item.species}" photo="${item.photo}" adoption-status="${adoptionStatus}"></spider-card>`
-                );
-            }).join("");
-        })
-        .catch(error => {
-            // Handle any errors that occurred during the fetch
-            console.error('There was a problem with the fetch operation:', error);
-        });
+    statusElement.addEventListener("change", function() { 
+        status = document.getElementById('status').value;
+        populateSpiders();
+    }, false);
+    
+    enableRouting('a')
 }
