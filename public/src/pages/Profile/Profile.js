@@ -220,18 +220,10 @@ export async function ProfilePage(queryString) {
                     <div class="spiders-container">
                         ${spiderArray.map(spider => {
                         return `<spider-card
-                                        adoption-status="${spider.adoption_status}"
-                                        spider-name="${spider.spider_name}"
-                                        species="${spider.species_name}"
-                                        photo="${spider.spider_photo}"
-                                        ></spider-card>`
-                        }).join('')}
-                        ${spiderArray.map(spider => {
-                        return `<spider-card
-                                        adoption-status="${spider.adoption_status}"
-                                        spider-name="${spider.spider_name}"
-                                        species="${spider.species_name}"
-                                        photo="${spider.spider_photo}"
+                                        adoption-status="${spider.adoptionstatus}"
+                                        spider-name="${spider.name}"
+                                        species="${spider.species}"
+                                        photo="${spider.photo}"
                                         ></spider-card>`
                         }).join('')}
                     </div>
