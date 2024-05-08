@@ -84,8 +84,8 @@ export class SpiderCard extends WebComponent {
     "adoption-status": { type: String },
     "spider-name": { type: String },
     species: { type: String },
+    spider: { type: String },
     photo: { type: String },
-    spiderId: { type: Number },
   };
 
   static get template() {
@@ -120,18 +120,15 @@ export class SpiderCard extends WebComponent {
 
     const img = this.shadowRoot.querySelector("img");
     img.src = this.getAttribute("photo");
-  }
 
-  listen() {
+    const id = this.getAttribute("spider");
     const btn = this.shadowRoot.getElementById("card");
-    btn.addEventListener("click", () => this.handleClick());
+    console.log(id);
+    console.log(`spiderprofile/?id=${id}`);
+    btn.addEventListener("click", () => navigate(`spiderprofile/?id=${id}`));
   }
 
-  handleClick() {
-    const id = this.getAttribute("spiderId");
-    console.log("id:", id);
-    navigate("spiderprofile");
-  }
+  listen() {}
 }
 
 customElements.define("spider-card", SpiderCard);

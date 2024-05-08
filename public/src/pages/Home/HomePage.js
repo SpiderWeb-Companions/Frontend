@@ -1,8 +1,12 @@
+import { isAuthenticated } from "../../_authentication/Authentication.js";
 import { enableRouting, navigate } from "../../_routing/start.js";
 import { getAllSpiders } from "../../services/home.js";
 
 export async function HomePage() {
-  /* TODO: Debug endpoint for get all spiders */
+  let authenticated = await isAuthenticated();
+  if (!isAuthenticated) {
+    navigate("home");
+  }
   const spiderArray = await getAllSpiders();
   /* TODO: Fix Responsiveness of Adoption Process Cards and Headers */
   const css = `
@@ -231,11 +235,12 @@ export async function HomePage() {
                       ${spiderArray
                         .map((spider) => {
                           return `<spider-card
-                                      adoption-status="${spider.adoption_status}"
-                                      spider-name="${spider.spider_name}"
-                                      species="${spider.species_name}"
-                                      photo="${spider.spider_photo}"
-                                      ></spider-card>`;
+                                        adoption-status="${spider.adoptionStatus}"  
+                                        spider-name="${spider.name}" 
+                                        species="${spider.species}"  
+                                        photo="${spider.photo}"
+                                        spider="${spider.id}"
+                                        ></spider-card>`;
                         })
                         .join("")}
                   </article>

@@ -1,9 +1,17 @@
-import { enableRouting } from "../../_routing/start.js";
+import { enableRouting, navigate } from "../../_routing/start.js";
+import { isAuthenticated } from "../../_authentication/Authentication.js";
 import { getSpiderDetails } from "../../services/spiderProfile.js";
 
 export async function SpiderProfile(queryString) {
-  // const spiderDetails = await getSpiderDetails("admin");
+  // const spiderDetails = await getSpiderDetails(queryString);
   /* DATA HARDCODED FOR NOW (STYLING PURPOSES) UNTIL ID ISSUE RESOLVED */
+  let authenticated = await isAuthenticated();
+  if (queryString && authenticated) {
+    const params = new URLSearchParams(queryString);
+    console.log(params);
+  } else {
+    navigate("home");
+  }
 
   const css = `
         <style>
@@ -213,4 +221,10 @@ export async function SpiderProfile(queryString) {
     new DOMParser().parseFromString(css, "text/html").head.firstChild
   );
   enableRouting("a");
+
+  const button = document.querySelector("button");
+  button.addEventListener("click", async (event) => {
+    event.preventDefault();
+    navigate("home");
+  });
 }

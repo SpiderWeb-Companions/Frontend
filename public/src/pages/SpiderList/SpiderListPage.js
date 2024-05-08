@@ -27,6 +27,7 @@ export async function SpiderListPage(queryString) {
                     spider-name="${spider.name}" 
                     species="${spider.species}"  
                     photo="${spider.photo}"
+                    spider="${spider.id}"
                     ></spider-card>`,
           "text/html"
         ).body.firstChild
@@ -197,6 +198,7 @@ export async function SpiderListPage(queryString) {
                             spider-name="${spider.name}" 
                             species="${spider.species}"  
                             photo="${spider.photo}"
+                            spider="${spider.id}"
                             ></spider-card>`;
                   })
                   .join("")}
