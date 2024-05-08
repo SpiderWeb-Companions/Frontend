@@ -256,8 +256,7 @@ export async function HomePage() {
 
   const button = document.querySelector("button");
   button.addEventListener("click", async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-
-    navigate("spiderlist");
+    event.preventDefault();
+    navigate("browse");
   });
 }
