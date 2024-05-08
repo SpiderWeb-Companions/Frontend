@@ -1,5 +1,5 @@
 export async function getSpiderDetails(id) {
-  const response = await fetch(`${API_ENDPOINT}/spider?id=${id}`, {
+  const response = await fetch(`${API_ENDPOINT}/api/spider/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

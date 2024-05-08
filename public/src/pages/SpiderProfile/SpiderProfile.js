@@ -3,14 +3,11 @@ import { isAuthenticated } from "../../_authentication/Authentication.js";
 import { getSpiderDetails } from "../../services/spiderProfile.js";
 
 export async function SpiderProfile(queryString) {
-  // const spiderDetails = await getSpiderDetails(queryString);
-  /* DATA HARDCODED FOR NOW (STYLING PURPOSES) UNTIL ID ISSUE RESOLVED */
-  let authenticated = await isAuthenticated();
-  if (queryString && authenticated) {
+  let spiderDetails = '';
+  if (queryString) {
     const params = new URLSearchParams(queryString);
-    console.log(params);
-  } else {
-    navigate("home");
+    let id = params.get('id')
+    spiderDetails = await getSpiderDetails(id);
   }
 
   const css = `
@@ -56,11 +53,13 @@ export async function SpiderProfile(queryString) {
           width: 50%;
           justify-content: center;
           align-items: center;
+          gap: 2vh;
         }
         .spider-pic {
             min-width: 40%;
             max-width: 70%;
             min-height: 50%;
+            padding: 2vh'
           }
         button {
             min-width: 18vw;
@@ -108,6 +107,7 @@ export async function SpiderProfile(queryString) {
           gap: 1vh;
           max-width: 100%;
           padding: 2vh;
+          align-self: start;
         }
         .spider-info-header {
           display: flex;
@@ -158,55 +158,53 @@ export async function SpiderProfile(queryString) {
   const html = `
         <main>
             <section class="spider-picture-section">
-                <img class="spider-pic" src="/assets/fluffy_spider.png" alt="Spider Picture">
+                <img class="spider-pic" src="${spiderDetails.photo}" alt="Spider Picture">
                 <button>Adopt Me</button>
             </section>
 
             <section class="spider-information-section">
                 <p class="status-pill"></p>
-                <h1>Spider Name</h1>
+                <h1>${spiderDetails.name}</h1>
                 <article class="rescue-story">
                     <h2 class="spider-info-header">Rescue Story:</h2>
-                    <p class="spider-info-text">Meet Charlotte, our resilient little spider with a heart as big as her web! Charlotte's story begins in a cozy garden shed, where she was discovered by a kind-hearted gardener named Lily. Poor Charlotte had found herself tangled in a clump of leaves, struggling to free herself.
-
-                      Now, Charlotte is ready to embark on a new adventure and find her forever home. Despite her humble beginnings, Charlotte is full of love and curiosity, eager to weave her way into the hearts of her new family. Will you be the one to give this brave little spider the happy ending she deserves?</p>
+                    <p class="spider-info-text">${spiderDetails.story}</p>
                 </article>
                 <article class="info-row-container">
                     <article class="info-field">
                         <h2 class="spider-info-header">Experience Level:</h2>
-                        <p class="spider-info-text">Intermediate</p>
+                        <p class="spider-info-text">${spiderDetails.speciesExperience}</p>
                     </article>
                     <article class="info-field">
                         <h2 class="spider-info-header">Habitat:</h2>
-                        <p class="spider-info-text">Terrestrial, prefers dry environments</p>
+                        <p class="spider-info-text">${spiderDetails.habitat}</p>
                     </article>
                 </article>
                 <article class="info-row-container">
                     <article class="info-field">
                         <h2 class="spider-info-header">Temperament:</h2>
-                        <p class="spider-info-text">Docile and calm</p>
+                        <p class="spider-info-text">${spiderDetails.temprement}</p>
                     </article>
                     <article class="info-field">
                         <h2 class="spider-info-header">Food:</h2>
-                        <p class="spider-info-text">Insects such as crickets and mealworms</p>
+                        <p class="spider-info-text">${spiderDetails.food}</p>
                     </article>
                 </article>
                 <article class="info-squares-container">
                     <article class="info-square">
                         <h2 class="spider-info-header">Species:</h2>
-                        <p class="spider-info-text">Mexican Redknee Tarantula</p>
+                        <p class="spider-info-text">${spiderDetails.SpeciesName}</p>
                     </article>
                     <article class="info-square">
                         <h2 class="spider-info-header">Age:</h2>
-                        <p class="spider-info-text">3 years old</p>
+                        <p class="spider-info-text">${spiderDetails.age}</p>
                     </article>
                     <article class="info-square">
                         <h2 class="spider-info-header">Sex:</h2>
-                        <p class="spider-info-text">Female</p>
+                        <p class="spider-info-text">${spiderDetails.gender}</p>
                     </article>
                     <article class="info-square">
                         <h2 class="spider-info-header">Health:</h2>
-                        <p class="spider-info-text">Excellent</p>
+                        <p class="spider-info-text">${spiderDetails.heatlh}</p>
                     </article>
                 </article>
             </section>
@@ -225,6 +223,6 @@ export async function SpiderProfile(queryString) {
   const button = document.querySelector("button");
   button.addEventListener("click", async (event) => {
     event.preventDefault();
-    navigate("home");
+    navigate(`adoption/?id=${id}`);
   });
 }

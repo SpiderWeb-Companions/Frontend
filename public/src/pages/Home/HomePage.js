@@ -138,13 +138,14 @@ export async function HomePage() {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            min-width: 15rem;
           }
           .adoption-card--container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 16vw;
-            width: 16vw;
+            min-width: 15rem;
+            width: 15rem;
             min-height: 33vh;
             height: 33vh;
             padding: 2vh;
@@ -170,7 +171,6 @@ export async function HomePage() {
             display: flex;
             flex-direction: column;
             padding: 2vh;
-            padding-bottom: 5vh;
           }
           .spider-cards-container {
             display: flex;
