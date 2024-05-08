@@ -24,17 +24,6 @@ export async function SpiderListPage(queryString) {
                     ></spider-card>`
                 , 'text/html').body.firstChild);
         });
-
-        // function appendBeb(spider, index, array) {
-        //     spiders.appendChild(new DOMParser().parseFromString(
-        //         `<spider-card 
-        //             adoption-status="${spider.adoptionStatus}"  
-        //             spider-name="${spider.name}" 
-        //             species="${spider.species}"  
-        //             photo="${spider.photo}"
-        //             ></spider-card>`
-        //         , 'text/html').body.firstChild);
-        // }
     }
 
     const css = `
@@ -211,13 +200,11 @@ export async function SpiderListPage(queryString) {
 
     speciesElement.addEventListener("change", function() { 
         species = document.getElementById('species').value;
-        console.log(species);
         populateSpiders();
     }, false);
 
     statusElement.addEventListener("change", function() { 
         status = document.getElementById('status').value;
-        console.log(status);
         populateSpiders();
     }, false);
     
