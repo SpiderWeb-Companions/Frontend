@@ -1,13 +1,19 @@
-import { enableRouting } from "../../_routing/start.js";
+import { enableRouting, navigate } from "../../_routing/start.js";
 import { getAllSpiders } from "../../services/home.js";
 
 export async function HomePage() {
   /* TODO: Debug endpoint for get all spiders */
   const spiderArray = await getAllSpiders();
   /* TODO: Fix Responsiveness of Adoption Process Cards and Headers */
-  const app = document.getElementById("app");
   const css = `
         <style>
+          @keyframes jiggle {
+            0% { transform: rotate(-5deg); }
+            25% { transform: rotate(5deg); }
+            50% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+            100% { transform: rotate(-5deg); }
+          }
           .main {
             min-height: 90vh;
             max-height: 90vh;
@@ -63,6 +69,9 @@ export async function HomePage() {
           .spider-pic {
             min-width: 30vw;
             min-height: 45vh;
+          }
+          .spider-pic:hover {
+             animation: jiggle 0.5s infinite; 
           }
           button {
             min-width: 20vw;
@@ -170,8 +179,7 @@ export async function HomePage() {
 
         </style>
     `;
-  app.innerHTML = `
-        ${css}
+  const html = `
         <main>
 
             <section class="landing-container">
@@ -235,12 +243,21 @@ export async function HomePage() {
 
         </main>
     `;
+
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  app.appendChild(
+    new DOMParser().parseFromString(html, "text/html").body.firstChild
+  );
+  app.appendChild(
+    new DOMParser().parseFromString(css, "text/html").head.firstChild
+  );
   enableRouting("a");
 
-  /* TODO: Finish Adopt Me Button */
   const button = document.querySelector("button");
-  button.addEventListener("adopt", async (event) => {
-    event.preventDefault();
+  button.addEventListener("click", async (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+
     navigate("spiderlist");
   });
 }
