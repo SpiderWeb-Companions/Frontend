@@ -11,7 +11,8 @@ export async function LoginPage(queryString) {
     if (queryString && !authenticated ) {
         const params = new URLSearchParams(queryString);
         let code = params.get('code')
-        setAccessToken(code);
+        await setAccessToken(code);
+        let userInfo = await getUserDetails();
         const css = `
         <style>
         main {
