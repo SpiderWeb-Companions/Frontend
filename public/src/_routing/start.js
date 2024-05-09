@@ -8,15 +8,20 @@ const domain = window.location.origin;
  * @param {*} route either a route defined in the route.js, or a link starting with http for redirect.
  */
 export async function navigate(route) {
-    let isAuthed = await isAuthenticated(); 
+    let urlQueryParams = window.location.search;
+    let queryParams = route.includes('?') ? `?${route.split('?')[1]}` : undefined;
+    queryParams = !queryParams ? urlQueryParams : `${queryParams}${urlQueryParams.replace('?','&')}`;
+    if (route.startsWith('http')){
+        window.location.href = route;
+        return;
+    } 
+    route = route.split('?')[0]
     route = route.startsWith('/') ? route.slice(1) : route;
-    let queryParams = window.location.search;
+    route = route.endsWith('/') ? route.slice(0,-1) : route;
     if (routes[route]) {
         routes[route](queryParams)
         // const app = document.getElementById('app');
         // app.innerHTML = `<${routes[route].identifier} queryparams=${queryParams}></${routes[route].identifier}>`;
-    } else if (route.startsWith('http')){
-        window.location.href = route;
     } 
     else {
         console.error(`Page ${route} not found.`);
