@@ -1,15 +1,7 @@
 import { css } from "../../_wrappers/css.js";
 import { html } from "../../_wrappers/html.js";
 import { setAccessToken, isAuthenticated, getUserDetails} from "../../_authentication/Authentication.js"
-import { enableRouting, navigate } from "../../_routing/start.js";
-
-
-let identifier = 'login-page';
-let authUrl = 'https://accounts.google.com/o/oauth2/auth';
-let scope = 'openid profile email';
-let clientId = '788254239785-ildidaodo59cco4j0k4aok89l8c8hip7.apps.googleusercontent.com';
-let redirectUri = 'http://localhost:4200/login';
-
+import { enableRouting } from "../../_routing/start.js";
 
 
 export async function LoginPage(queryString) {
@@ -30,20 +22,29 @@ export async function LoginPage(queryString) {
         app.innerHTML =  html`
         <h1>You've been successfully authenticated!!</h1>
         <p> ${userInfo.name} </p>
-        <button id="leave">Leave</button>
         `
-        navigate(`spiderlist/?id=id`);
     }else{
 
     app.innerHTML =  html`
         <h1>SpiderWeb Companions</h1>
-        <a href="${authUrl}?scope=${scope}&response_type=code&redirect_uri=${redirectUri}&client_id=${clientId}">Google authentication</a>
+        <a href="${AUTH_URL}?scope=${SCOPE}&response_type=code&redirect_uri=${REDIRECT_URI}&client_id=${CLIENT_ID}">Google authentication</a>
     `
     }
-    const button = document.querySelector("button");
-    button.addEventListener("adopt", async (event) => {
-      event.preventDefault();
-      navigate("spiderlist/?id=id");
-    });
     enableRouting('a')
 }
+
+
+    
+//    export function LoginPage() {
+
+//         if (LoginPage.properties.htmlResponse.getHtmlResponse() == '') {
+//             this.renderAsync()
+//             return `Loader`
+//         } else{
+//             const htmlResponse = LoginPage.properties.htmlResponse.getHtmlResponse().value;
+//             LoginPage.properties.htmlResponse.setHtmlResponse('');
+//             return htmlResponse;
+//         }
+
+//     }
+

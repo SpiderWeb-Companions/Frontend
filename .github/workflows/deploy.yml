@@ -29,4 +29,4 @@ jobs:
       - name: Delete old container
         run: sudo docker rm -f spiderweb-frontend-container
       - name: Run container
-        run: sudo docker run -d -e API_ENDPOINT="${{secrets.API_ENDPOINT}}" -p 80:4200 --name spiderweb-frontend-container ${{secrets.DOCKER_USERNAME}}/swfe:latest
+        run: sudo docker run -d -e AUTH_URL=${{secrets.AUTH_URL}} -e SCOPE=${{secrets.SCOPE}} -e CLIENT_ID=${{secrets.CLIENT_ID}} -e REDIRECT_URI=${{secrets.REDIRECT_URI}} -e API_ENDPOINT="${{secrets.API_ENDPOINT}}" -p 80:4200 --name spiderweb-frontend-container ${{secrets.DOCKER_USERNAME}}/swfe:latest

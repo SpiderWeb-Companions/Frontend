@@ -1,5 +1,5 @@
 export async function getSpiders(username) {
-    const response = await fetch(`${API_ENDPOINT}/api/favourite`, {
+    const response = await fetch(`${API_ENDPOINT}/api/my/spiders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

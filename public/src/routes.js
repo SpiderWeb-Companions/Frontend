@@ -3,15 +3,15 @@ import { HomePage } from "./pages/Home/HomePage.js";
 import { LoginPage } from "./pages/Login/LoginPage.js";
 import { ContactPage } from "./pages/Contact/ContactPage.js";
 import { ProfilePage } from "./pages/Profile/Profile.js";
-import { SpiderList } from "./pages/SpiderList/SpiderListPage.js";
-import { LogoutPage } from "./pages/Logout/LogoutPage.js";
+import { SpiderListPage } from "./pages/SpiderList/SpiderListPage.js";
+import { SpiderProfile } from "./pages/SpiderProfile/SpiderProfile.js";
 
 export const routes = {
-    '': BasePage,
-    'home': HomePage,
-    'login': LoginPage,
-    'contact': ContactPage,
-    'profile': ProfilePage,
-    'spiderlist' : SpiderList,
-    'logout' : LogoutPage,
-}
+  "": BasePage,
+  home: HomePage,
+  login: LoginPage,
+  contact: ContactPage,
+  profile: ProfilePage,
+  spiderprofile: SpiderProfile,
+  browse: SpiderListPage,
+};
