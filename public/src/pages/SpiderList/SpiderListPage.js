@@ -4,7 +4,7 @@ import { SpiderCard } from "../../components/SpiderCard.js";
 import {
   getSpiders,
   getAdoptionStatuses,
-  getSpecies,
+  getSpecies
 } from "../../services/spiders.js";
 
 export async function SpiderListPage(queryString) {
@@ -38,52 +38,25 @@ export async function SpiderListPage(queryString) {
   const css = `
     <style>
         main {
-            font-family: "DM Sans", sans-serif;
-            min-height: 90vh;
-            max-height: 90vh;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            flex-wrap: wrap;
-            align-items: stretch;
-            width: 100%;
+          font-family: "DM Sans", sans-serif;
+          height: 86vh;
+          display: flex;
+          flex-direction: column;
+          margin: 0;
+          padding: 0;
+          width: 100vw;
+          overflow: hidden;
         } 
-
-        .spiders {
-            height: 100%;
-            max-height: 80vh;
-            min-height: 80vh;
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-            // justify-content: center;
-            // align-items: center;
-        }
-        
-        .spiders-wrapper {
-            display: flex;
-            flex-direction: column;
-            // align-items: center;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
 
         .spiders-container {
             display: flex;
-            justify-content: space-evenly;
-            // align-items: center;
+            justify-content: center;
             flex-wrap: wrap;
-            width: 100%;
-            height: 100%;
             margin: 0;
-            padding: 0;
-            max-height: 100%;
+            height: fit-content;
             overflow-y: auto;
-            gap: 1rem; 
+            gap: 2vw; 
+            padding: 2vh;
         }
 
         .filter-container {
@@ -91,13 +64,10 @@ export async function SpiderListPage(queryString) {
             flex-direction: row;
             color: #898989;
             font-size: 0.9em;
-            height: 100%;
-            max-height: 10vh;
-            min-height: 10vh;
             display: flex;
             flex-wrap: wrap;
             align-items: stretch;
-            width: 100%;
+            gap: 1vw;
         }
 
         .filter-container section {
@@ -187,23 +157,18 @@ export async function SpiderListPage(queryString) {
                 </select>
             </section>
         </form>  
-
-        <section class="spiders">
-        <section class="spiders-wrapper">
-            <section id="spiders-container" class="spiders-container">
-                ${spiderArray
-                  .map((spider) => {
-                    return `<spider-card 
-                            adoption-status="${spider.adoptionStatus}"  
-                            spider-name="${spider.name}" 
-                            species="${spider.species}"  
-                            photo="${spider.photo}"
-                            spider="${spider.id}"
-                            ></spider-card>`;
-                  })
-                  .join("")}
-            </section>
-        </section>
+        <section id="spiders-container" class="spiders-container">
+            ${spiderArray
+              .map((spider) => {
+                return `<spider-card 
+                        adoption-status="${spider.adoptionStatus}"  
+                        spider-name="${spider.name}" 
+                        species="${spider.species}"  
+                        photo="${spider.photo}"
+                        spider="${spider.id}"
+                        ></spider-card>`;
+              })
+              .join("")}
         </section>
     </main>`;
 

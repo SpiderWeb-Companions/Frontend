@@ -11,16 +11,17 @@ export class SpiderCard extends WebComponent {
   static css = css`
     <style>
         main {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
             font-family: "DM Sans", sans-serif;
             border: 0.05em solid #ccc;
-            //margin: 0.5em;
-            margin: 0.8em 0 1em 0;
             border-radius: 1em;
-            width: 100%;
-            min-width: 16.25rem;
-            max-width: 18rem;
-            min-height: 15rem;
-            max-height: 15rem;
+            min-width: 15.5rem;
+            max-width: 15.5rem;
+            min-height: 15.5rem;
+            max-height: 15.5rem;
             text-align: center;
             transition: transform 0.1s ease-in-out;
             box-shadow: 0 0.2em 0.2em rgba(0, 0, 0, 0.3);
@@ -28,30 +29,36 @@ export class SpiderCard extends WebComponent {
         }
 
         main:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
+            cursor: pointer;
         }
 
         .card-content {
-            //padding: 0.5em 0.75em;
-            //padding: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .img-box {
-            margin: 0.5em;
+            padding: 1vh;
         }
 
         .images {
             width: auto;
-            //height: auto;
             height: 6rem;
         }
 
         p {
-            font-size: 1em;
+            font-size: 0.8rem;
+            margin: 0;
+            font-weight: 500;
         }
 
         h2 {
-            font-size: 1.5em;
+            font-size: 1.2rem;
+            margin: 0;
+            padding: 1vh;
+            font-weight: 600;
+
         }
 
         .status-pill {
