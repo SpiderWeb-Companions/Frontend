@@ -6,14 +6,14 @@ import { getUserDetails } from "../../_authentication/Authentication.js";
 export async function ProfilePage(queryString) {
     // Grab from function
     // Coming soon...
-    // const user = await getUserDetails();
-    // const email = user.email;
-    // const name = user.name;
-    // const profilePic = user.picture;
-    const email = 'placeholder@gmail.com';
-    const name = 'John Doe';
-    const profilePic = 'https://via.placeholder.com/150';
-    const spiderArray = await getSpiders("admin");
+    const user = await getUserDetails();
+    const email = user.email;
+    const name = user.name;
+    const profilePic = user.picture;
+    // const email = 'placeholder@gmail.com';
+    // const name = 'John Doe';
+    // const profilePic = 'https://via.placeholder.com/150';
+    const spiderArray = await getSpiders(email);
 
     const css = `
         <style>
