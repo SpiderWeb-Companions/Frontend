@@ -15,12 +15,8 @@ export async function LoginPage(queryString) {
         const css = `
         <style>
         main {
-            min-height: 90vh;
-            max-height: 90vh;
-            min-width: 100vw;
-            max-width: 100vw;
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            width: 100vw;
             display: flex;
             overflow: hidden;
             justify-content: center;
@@ -98,7 +94,6 @@ export async function LoginPage(queryString) {
     
         const loginButton = this.shadowRoot.querySelector("button")
         loginButton.addEventListener("click", async (event) => {
-            console.log("button clicked");
             event.preventDefault();
             navigate("home");
         });
@@ -108,12 +103,8 @@ export async function LoginPage(queryString) {
         const css = `
         <style>
         main {
-            min-height: 90vh;
-            max-height: 90vh;
-            min-width: 100vw;
-            max-width: 100vw;
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            width: 100vw;
             display: flex;
             overflow: hidden;
             justify-content: center;
@@ -209,7 +200,6 @@ export async function LoginPage(queryString) {
     
         const loginButton = this.shadowRoot.querySelector("button")
         loginButton.addEventListener("click", async (event) => {
-            console.log("button clicked");
             event.preventDefault();
             navigate("home");
         });
@@ -219,12 +209,8 @@ export async function LoginPage(queryString) {
         const css = `
         <style>
         main {
-            min-height: 90vh;
-            max-height: 90vh;
-            min-width: 100vw;
-            max-width: 100vw;
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            width: 100vw;
             display: flex;
             overflow: hidden;
             justify-content: center;
@@ -310,7 +296,7 @@ export async function LoginPage(queryString) {
                     <section class="info-container">
                         <h1>Welcome to SpiderWeb Companions</h1>
                         <p>Please login to continue</p>
-                        <button id="login-button">Login</button>
+                        <button id="loginbutton">Login</button>
                     </section>
 
                 </article>
@@ -327,9 +313,8 @@ export async function LoginPage(queryString) {
         );
         enableRouting("a");
     
-        const loginButton = this.shadowRoot.querySelector("button")
+        const loginButton = document.getElementById("loginbutton");
         loginButton.addEventListener("click", async (event) => {
-            console.log("button clicked");
             event.preventDefault();
             navigate(`${AUTH_URL}?scope=${SCOPE}&response_type=code&redirect_uri=${REDIRECT_URI}&client_id=${CLIENT_ID}`);
         });
