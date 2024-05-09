@@ -11,7 +11,7 @@ export async function sendContactForm (name, email, message) {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+                'authorization': `${sessionStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(requestBody)
         });

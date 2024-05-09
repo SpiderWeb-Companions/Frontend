@@ -3,7 +3,8 @@ export async function getSpiderDetails(id) {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Accept: "*/*",
+      'Accept': "*/*",
+      'authorization': `${sessionStorage.getItem('accessToken')}`
     },
   });
 

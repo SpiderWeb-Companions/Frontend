@@ -2,8 +2,9 @@ export async function getAllSpiders() {
   const response = await fetch(`${API_ENDPOINT}/api/all/spiders`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      Accept: "*/*",
+      'Content-Type': 'application/json',
+      'Accept': '*/*',
+      'authorization': `${sessionStorage.getItem('accessToken')}`
     },
     body: JSON.stringify({ limit: 3 }),
   });

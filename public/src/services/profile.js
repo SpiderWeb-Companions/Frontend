@@ -3,7 +3,8 @@ export async function getSpiders(username) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': '*/*'
+            'Accept': '*/*',
+            'authorization': `${sessionStorage.getItem('accessToken')}`
         },
         body: JSON.stringify({ username })
     });
