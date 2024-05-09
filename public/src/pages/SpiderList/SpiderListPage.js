@@ -90,7 +90,6 @@ const css = `
           margin: 0;
           padding: 0;
           width: 100vw;
-          overflow: hidden;
         } 
 
         .spiders-container {

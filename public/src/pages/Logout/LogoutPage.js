@@ -1,3 +1,4 @@
+import { navigate } from "../../_routing/start.js";
 export async function LogoutPage(queryString) {
 
     let html ='';

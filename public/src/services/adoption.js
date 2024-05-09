@@ -1,9 +1,10 @@
-export async function submitAdoptionForm (email, adoptionReason, comments,spiderID ) {
+export async function submitAdoptionForm (Email, AdoptionReason, Comments, SpiderID ) {
+
     const requestBody = {
-        email,
-        adoptionReason,
-        comments,
-        spiderID
+        Email,
+        AdoptionReason,
+        Comments,
+        SpiderID
     };
 
     try {
