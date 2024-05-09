@@ -28,7 +28,7 @@ export async function getSpecies() {
     const response = await fetch(`${API_ENDPOINT}/api/species`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+            'authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
         }
     });
 
@@ -44,7 +44,7 @@ export async function getAdoptionStatuses() {
     const response = await fetch(`${API_ENDPOINT}/api/status`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+            'authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
         }
     });
 
@@ -62,7 +62,7 @@ export async function getSpiderCount(name, spiderSpecies, adoptionStatus) {
         headers: {
             'Content-Type': 'application/json',
             'Accept': '*/*',
-            'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+            'authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
         },
         body: JSON.stringify({ 
             search: name,
