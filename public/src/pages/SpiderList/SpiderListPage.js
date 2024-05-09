@@ -8,34 +8,34 @@ import {
 } from "../../services/spiders.js";
 
 export async function SpiderListPage(queryString) {
-  let search = "",
+let search = "",
     species = "",
     status = "";
-  let spiderArray = await getSpiders(8, 1, search, species, status);
-  const speciesArray = await getSpecies();
-  const statusArray = await getAdoptionStatuses();
+let spiderArray = await getSpiders(8, 1, search, species, status);
+const speciesArray = await getSpecies();
+const statusArray = await getAdoptionStatuses();
 
-  async function populateSpiders() {
+async function populateSpiders() {
     spiderArray = await getSpiders(8, 1, search, species, status);
     const spiders = document.getElementById("spiders-container");
     spiders.innerHTML = "";
     spiderArray.forEach(function (spider, index, array) {
-      spiders.appendChild(
+    spiders.appendChild(
         new DOMParser().parseFromString(
-          `<spider-card 
+        `<spider-card 
                     adoption-status="${spider.adoptionStatus}"  
                     spider-name="${spider.name}" 
                     species="${spider.species}"  
                     photo="${spider.photo}"
                     spider="${spider.id}"
                     ></spider-card>`,
-          "text/html"
+        "text/html"
         ).body.firstChild
-      );
+    );
     });
-  }
+}
 
-  const css = `
+const css = `
     <style>
         main {
           font-family: "DM Sans", sans-serif;
@@ -107,11 +107,30 @@ export async function SpiderListPage(queryString) {
         }
 
         .search {
-            padding-left: 2.75em;
-            background-image: url(../../../assets/search.svg);
-            background-size:auto;
-            background-repeat: no-repeat;
-            background-position: 0.75em center;  
+            padding: 1em; 
+            font-size: 1em;
+            border:none;
+            outline: none;
+            background-color: transparent;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            padding-right: 0;
+        }
+
+        .search-control {
+            border:none;
+            outline: none;
+            background-color: transparent;
+            height: 100%
+            transition-duration: 0.3s;
+        }
+
+        .search-control:hover {
+            background-color: #d3d3d3;
+            transition-duration: 0.3s;
         }
         
         p {
@@ -124,36 +143,44 @@ export async function SpiderListPage(queryString) {
 
     </style>`;
 
-  const html = `
+const html = `
     <main id="main">
         <form id="card-filters" class="filter-container">
             <section class="card-filter">
-                <label class="filter-label">Name</label>
-                <input id="search" name="search" type="text" placeholder="Search" class="search filter-control">
+                <label for="search" class="filter-label">Name</label>
+                <section class="search-container filter-control">
+                    <input id="search" name="search" type="text" placeholder="Search" class="search">
+                    <button id="reset-button" class="search-control reset-button" type="reset">
+                        x
+                    </button>
+                    <button id="search-button" class="search-control search-button" type="submit">
+                        <img src="../../../assets/search.svg" />
+                    </button>
+                </section>
             </section>
             <section class="card-filter">
-                <label class="filter-label">Species</label>
+                <label for="species" class="filter-label">Species</label>
                 <select id="species" name="species" class="filter-control">
                     <option value="" selected>Any</option>
                     ${speciesArray
-                      .map((species) => {
+                    .map((species) => {
                         return `<option value="${species.SpeciesName}">${species.SpeciesName}</option>`;
-                      })
-                      .join("")}
+                    })
+                    .join("")}
                 </select>
             </section>
             <section class="card-filter">
-                <label class="filter-label">Adoption Status</label>
+                <label for="status" class="filter-label">Adoption Status</label>
                 <select id="status" name="adoption-status" class="filter-control">
                     <option value="" selected>Any</option>
                     ${statusArray
-                      .map((status) => {
+                    .map((status) => {
                         const word = status.status;
                         const adoptionStatus =
-                          word.charAt(0).toUpperCase() + word.slice(1);
+                        word.charAt(0).toUpperCase() + word.slice(1);
                         return `<option value="${status.status}">${adoptionStatus}</option>`;
-                      })
-                      .join("")}
+                    })
+                    .join("")}
                 </select>
             </section>
         </form>  
@@ -172,35 +199,62 @@ export async function SpiderListPage(queryString) {
         </section>
     </main>`;
 
-  const app = document.getElementById("app");
-  app.innerHTML = "";
-  app.appendChild(
+const app = document.getElementById("app");
+app.innerHTML = "";
+app.appendChild(
     new DOMParser().parseFromString(html, "text/html").body.firstChild
-  );
-  app.appendChild(
+);
+app.appendChild(
     new DOMParser().parseFromString(css, "text/html").head.firstChild
-  );
+);
 
-  const speciesElement = document.getElementById("species");
-  const statusElement = document.getElementById("status");
+const speciesElement = document.getElementById("species");
+const statusElement = document.getElementById("status");
 
-  speciesElement.addEventListener(
+speciesElement.addEventListener(
     "change",
-    function () {
-      species = document.getElementById("species").value;
-      populateSpiders();
+    async () => {
+        species = document.getElementById("species").value;
+        await populateSpiders();
     },
     false
-  );
+);
 
-  statusElement.addEventListener(
+statusElement.addEventListener(
     "change",
-    function () {
-      status = document.getElementById("status").value;
-      populateSpiders();
+    async () =>  {
+        status = document.getElementById("status").value;
+        await populateSpiders();
     },
     false
-  );
+);
 
-  enableRouting("a");
+const form = document.getElementById("card-filters");
+form.addEventListener(
+    'submit', 
+    async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const formValues = Object.fromEntries(formData.entries());
+        if (search != formValues.search) {
+            search = formValues.search;
+            await populateSpiders();
+        }     
+    }
+);
+
+form.addEventListener(
+    'reset', 
+    async (event) => {
+        event.preventDefault();
+        const searchField = document.getElementById("search");
+        searchField.value = "";
+        if (search != "") {
+            search = "";
+            await populateSpiders();
+        } 
+    }
+);
+
+enableRouting("a");
 }
