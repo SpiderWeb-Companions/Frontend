@@ -4,7 +4,7 @@ export async function getSpiders(username) {
         headers: {
             'Content-Type': 'application/json',
             'Accept': '*/*',
-            'authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+            'authorization': `${sessionStorage.getItem('accessToken')}`
         },
         body: JSON.stringify({ username })
     });
