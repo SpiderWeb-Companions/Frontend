@@ -56,5 +56,5 @@ export function enableRouting(element) {
 if (await isAuthenticated()){
     navigate(firstRoute);
 }else {
-    navigate('adoption/?id=1') //TODO: perhaps a navigation param "navigation message" to tell the user why they were navigated would be good here
+    navigate('login') //TODO: perhaps a navigation param "navigation message" to tell the user why they were navigated would be good here
 }                     // Or perhaps a redirect location for the case of login
