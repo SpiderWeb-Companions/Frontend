@@ -97,7 +97,6 @@ export async function LoginPage(queryString) {
             event.preventDefault();
             navigate("home");
         });
-        enableRouting('a')
     } else if (authenticated){
         let userInfo = await getUserDetails();
         const css = `
@@ -318,7 +317,6 @@ export async function LoginPage(queryString) {
             event.preventDefault();
             navigate(`${AUTH_URL}?scope=${SCOPE}&response_type=code&redirect_uri=${REDIRECT_URI}&client_id=${CLIENT_ID}`);
         });
-        enableRouting('a')
     }
     
 }
