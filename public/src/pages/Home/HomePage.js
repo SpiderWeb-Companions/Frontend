@@ -19,26 +19,25 @@ export async function HomePage() {
             100% { transform: rotate(-5deg); }
           }
           .main {
-            min-height: 90vh;
-            max-height: 90vh;
-            min-width: 100vw;
-            max-width: 100vw;
-            height: 100%;
-            width: 100%;
+            height: 90vh;
+            width: 100vw;
             display: flex;
             flex-direction: column;
             overflow: hidden;
           }
           .landing-container {
-            min-height: 90vh;
+            height: 88vh;
+            width: 100vw;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+            padding: 1vh;
           }
           .info-container {
             display: flex;
-            max-width: 30vw;
+            width: 40rem;
+            max-width: 100%;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -71,8 +70,9 @@ export async function HomePage() {
             max-width: 80%;
           }
           .spider-pic {
-            min-width: 30vw;
+            min-width: 40rem
             min-height: 45vh;
+            max-width: 100%;
           }
           .spider-pic:hover {
              animation: jiggle 0.5s infinite; 
@@ -80,6 +80,7 @@ export async function HomePage() {
           button {
             min-width: 20vw;
             min-height: 6vh;
+            width: 18rem;
             background-color: #a7ebe5;
             color: #15524d;
             font-size: 0.8rem;

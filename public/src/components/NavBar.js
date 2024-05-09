@@ -17,13 +17,15 @@ export class NavBar extends WebComponent {
       min-height: 10vh;
       color: #ffff;
       justify-content: center;
-      padding: 1vh;
+      padding: 2vh;
     }
 
     .logo {
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 4.375rem;
+      height: 4.0625rem;
     }
 
     h1 {
@@ -33,7 +35,6 @@ export class NavBar extends WebComponent {
       font-size: 1rem;
       font-weight: bold;
       font-family: "DM Sans", sans-serif;
-      width: 8vw;
       height: 10vh;
       color: #ffaebc;
       margin: 0;
@@ -75,6 +76,7 @@ export class NavBar extends WebComponent {
     ul li a {
       text-decoration: none;
       color: inherit;
+      text-align: center;
     }
 
     button {
@@ -95,6 +97,12 @@ export class NavBar extends WebComponent {
     button:hover {
       cursor: pointer;
     }
+    @media (max-width: 500px) {
+      .logo {
+          display: none;
+      }
+  }
+  
     </style>
   `;
   static properties = {};
