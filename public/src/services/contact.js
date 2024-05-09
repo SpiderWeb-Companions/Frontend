@@ -10,7 +10,8 @@ export async function sendContactForm (name, email, message) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': '*/*'
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(requestBody)
         });
