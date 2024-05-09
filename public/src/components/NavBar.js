@@ -99,12 +99,17 @@ export class NavBar extends WebComponent {
   `;
   static properties = {};
   render() {
+    const loginButton = this.shadowRoot.querySelector("button")
+    loginButton.addEventListener("click", async (event) => {
+        event.preventDefault();
+        navigate("logout");
+    });
   }
 
   static get template() {
     const template = document.createElement('template');
     const currentUrl = window.location.href.split("/")[window.location.href.split("/").length - 1];
-    if (currentUrl != 'login') {
+    if (currentUrl != 'login' || currentUrl != 'logout') {
       template.innerHTML = `
               ${NavBar.css}
               <header>
