@@ -9,7 +9,6 @@ export async function SpiderAdoption(queryString) {
     const user = await getUserDetails();
     let email = user.email;
     let name = user.name;
-    console.log(email, " ", name)
 
     if (queryString) {
       const params = new URLSearchParams(queryString);
@@ -210,6 +209,13 @@ export async function SpiderAdoption(queryString) {
             align-items: center;
             border-radius: 2rem;
         }
+        .button--disabled {
+          background-color: #D6D6D6;
+          color: #4C4C4C;
+        }
+        .button--disabled:hover {
+          cursor: not-allowed;
+        
         .error-label {
             display: flex;
             justify-content: center;
@@ -344,20 +350,19 @@ export async function SpiderAdoption(queryString) {
         }
         fieldsAreValid[event.srcElement.id] =true;
 
+        //if invalid
+        //const btn = document.querySelector(".button");
+        //btn.classList.add("button--disabled");
+
     }
 
     firstName.addEventListener("change", async (event) => {
         validate(event)
       });
   
-
-
-
     const button = document.getElementById("submit-button");
     button.addEventListener("click", async (event) => {
       event.preventDefault();
-      email = "adrianhawkins02@gmail.com";
-      console.log('form info: ', email, reason.value, comments.value, "id: ", id)
       let response = submitAdoptionForm(email, reason.value, comments.value, id)
       provideFeedback(response);
     });
@@ -372,10 +377,11 @@ export async function SpiderAdoption(queryString) {
         let htmlFeedback ="";
         if (response.status == 200)
         {
-            htmlFeedback = "Success"            
+            htmlFeedback = "Success"
+            navigate('home');          
         }
         else{
-            htmlFeedback = "Failure"
+            htmlFeedback = "Sorry something went wrong"
         }
         feedback.appendChild(
             new DOMParser().parseFromString(htmlFeedback, "text/html").body.firstChild

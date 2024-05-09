@@ -4,23 +4,17 @@ import { SpiderCard } from "../../components/SpiderCard.js";
 import { getUserDetails } from "../../_authentication/Authentication.js";
 
 export async function ProfilePage(queryString) {
-    // Grab from function
-    // Coming soon...
     const user = await getUserDetails();
     const email = user.email;
     const name = user.name;
     const profilePic = user.picture;
-    // const email = 'placeholder@gmail.com';
-    // const name = 'John Doe';
-    // const profilePic = 'https://via.placeholder.com/150';
     const spiderArray = await getSpiders(email);
 
     const css = `
         <style>
             main {
-                min-height: 90vh;
-                max-height: 90vh;
-                height: 100%;
+                height: 86vh;
+                width: 100vw;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -34,7 +28,6 @@ export async function ProfilePage(queryString) {
             .spiders {
                 height: 45vh;
                 max-height: 45vh;
-                min-height: 45vh;
                 width: 100vw;
                 display: flex;
                 flex-direction: column;
@@ -63,7 +56,8 @@ export async function ProfilePage(queryString) {
               display: flex;
               align-items: center;
               margin: 0;
-                padding: 0;
+              padding: 0;
+              flex-wrap: wrap;
             }
             
             .profile-pic {
@@ -105,7 +99,7 @@ export async function ProfilePage(queryString) {
                 justify-content: space-evenly;
                 align-items: center;
                 flex-wrap: wrap;
-                width: 100%;
+                max-width: 100%;
                 height: 100%;
                 margin: 0;
                 padding: 0;
@@ -187,37 +181,37 @@ export async function ProfilePage(queryString) {
               font-family: "DM Sans", sans-serif;
             }
             
-            @media (max-width: 480px) {
-              .profile-container {
-                flex-direction: column;
-                align-items: center;
-              }
-              .profile-pic {
-                  width: 10rem;
-                  height: 10rem;
-                  border-radius: 50%;
-                  overflow: hidden;
-              }
-            }
+            // @media (max-width: 480px) {
+            //   .profile-container {
+            //     flex-direction: column;
+            //     align-items: center;
+            //   }
+            //   .profile-pic {
+            //       width: 10rem;
+            //       height: 10rem;
+            //       border-radius: 50%;
+            //       overflow: hidden;
+            //   }
+            // }
         </style>
     `;
     const html = `
         <main>
             <section class="profile">
-              <div class="profile-container">
-                <div class="profile-pic">
+              <article class="profile-container">
+                <article class="profile-pic">
                   <img src="${profilePic}">
-                </div>
-                <div class="profile-info">
+                </article>
+                <article class="profile-info">
                   <h2>${name}</h2>
                   <p>${email}</p>
-                </div>
-              </div>
+                </article>
+              </article>
             </section>
             <section class="spiders">
-                <div class="spiders-wrapper">
+                <article class="spiders-wrapper">
                     <h2>My Spiders</h2>
-                    <div class="spiders-container">
+                    <article class="spiders-container">
                         ${spiderArray.map(spider => {
                         return `<spider-card
                                         adoption-status="${spider.adoptionstatus}"
@@ -226,8 +220,8 @@ export async function ProfilePage(queryString) {
                                         photo="${spider.photo}"
                                         ></spider-card>`
                         }).join('')}
-                    </div>
-                </div>
+                    </article>
+                </article>
             </section>
         </main>
     `;
