@@ -18,8 +18,19 @@ export async function navigate(route) {
     route = route.split('?')[0]
     route = route.startsWith('/') ? route.slice(1) : route;
     route = route.endsWith('/') ? route.slice(0,-1) : route;
+
     if (routes[route]) {
-        routes[route](queryParams)
+        routes[route](queryParams);
+
+        const body = document.body;
+        const navBar = document.querySelector('nav-bar');
+        if (navBar) {
+            navBar.remove();
+        }
+        if(route !== "login" && route !== "logout") {
+            body.prepend(new DOMParser().parseFromString(`<nav-bar></nav-bar>`, 'text/html').body.firstChild)
+
+        }
         // const app = document.getElementById('app');
         // app.innerHTML = `<${routes[route].identifier} queryparams=${queryParams}></${routes[route].identifier}>`;
     } 

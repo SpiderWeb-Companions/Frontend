@@ -80,66 +80,40 @@ export async function SpiderListPage(queryString) {
         });
     }
 
-    const css = `
-        <style>
-            main {
-                font-family: "DM Sans", sans-serif;
-                min-height: 90vh;
-                max-height: 90vh;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                flex-wrap: wrap;
-                align-items: stretch;
-                width: 100%;
-            } 
+const css = `
+    <style>
+        main {
+          font-family: "DM Sans", sans-serif;
+          height: 86vh;
+          display: flex;
+          flex-direction: column;
+          margin: 0;
+          padding: 0;
+          width: 100vw;
+          overflow: hidden;
+        } 
 
-            .spiders {
-                height: 100%;
-                max-height: 80vh;
-                min-height: 80vh;
-                width: 100vw;
-                display: flex;
-                flex-direction: column;
-            }
-            
-            .spiders-wrapper {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-            }
+        .spiders-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 0;
+            height: fit-content;
+            overflow-y: auto;
+            gap: 2vw; 
+            padding: 2vh;
+        }
 
-            .spiders-container {
-                display: flex;
-                justify-content: space-evenly;
-                flex-wrap: wrap;
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-                max-height: 100%;
-                overflow-y: auto;
-                gap: 1rem; 
-            }
-
-            .filter-container {
-                padding-left: 5vw;
-                flex-direction: row;
-                color: #898989;
-                font-size: 0.9em;
-                height: 100%;
-                max-height: 10vh;
-                min-height: 10vh;
-                display: flex;
-                flex-wrap: wrap;
-                align-items: stretch;
-                width: 100%;
-            }
+        .filter-container {
+            padding-left: 5vw;
+            flex-direction: row;
+            color: #898989;
+            font-size: 0.9em;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            gap: 1vw;
+        }
 
             .filter-container section {
                 padding: 0 0.5em;
