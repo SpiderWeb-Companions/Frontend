@@ -123,8 +123,6 @@ export class SpiderCard extends WebComponent {
 
     const id = this.getAttribute("spider");
     const btn = this.shadowRoot.getElementById("card");
-    console.log(id);
-    console.log(`spiderprofile/?id=${id}`);
     btn.addEventListener("click", () => navigate(`spiderprofile/?id=${id}`));
   }
 

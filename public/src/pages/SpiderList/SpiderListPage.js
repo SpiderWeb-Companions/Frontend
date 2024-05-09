@@ -11,12 +11,12 @@ export async function SpiderListPage(queryString) {
   let search = "",
     species = "",
     status = "";
-  let spiderArray = await getSpiders(0, search, species, status);
+  let spiderArray = await getSpiders(8, 1, search, species, status);
   const speciesArray = await getSpecies();
   const statusArray = await getAdoptionStatuses();
 
   async function populateSpiders() {
-    spiderArray = await getSpiders(0, search, species, status);
+    spiderArray = await getSpiders(8, 1, search, species, status);
     const spiders = document.getElementById("spiders-container");
     spiders.innerHTML = "";
     spiderArray.forEach(function (spider, index, array) {
