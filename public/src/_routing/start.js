@@ -31,7 +31,7 @@ export async function navigate(route) {
             navigate(''); 
         }
     }
-    history.pushState(null, null, `${domain}.nip.io/${route}`);
+    history.pushState(null, null, `${domain}/${route}`);
 }
 
 
