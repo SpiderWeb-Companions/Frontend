@@ -5,10 +5,10 @@ import { enableRouting } from "../../_routing/start.js";
 
 
     let identifier = 'login-page';
-    let authUrl = 'https://accounts.google.com/o/oauth2/auth';
-    let scope = 'openid profile email';
-    let clientId = '788254239785-ildidaodo59cco4j0k4aok89l8c8hip7.apps.googleusercontent.com';
-    let redirectUri = 'http://localhost:4200/login';
+    let authUrl =  process.env.AUTH_URL;
+    let scope = process.env.SCOPE;
+    let clientId = process.env.CLIENT_ID;
+    let redirectUri = process.env.REDIRECT_URI;
 
 
 
