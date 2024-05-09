@@ -6,14 +6,14 @@ import { getUserDetails } from "../../_authentication/Authentication.js";
 export async function ProfilePage(queryString) {
     // Grab from function
     // Coming soon...
-    // const user = await getUserDetails();
-    // const email = user.email;
-    // const name = user.name;
-    // const profilePic = user.picture;
-    const email = 'placeholder@gmail.com';
-    const name = 'John Doe';
-    const profilePic = 'https://via.placeholder.com/150';
-    const spiderArray = await getSpiders("admin");
+    const user = await getUserDetails();
+    const email = user.email;
+    const name = user.name;
+    const profilePic = user.picture;
+    // const email = 'placeholder@gmail.com';
+    // const name = 'John Doe';
+    // const profilePic = 'https://via.placeholder.com/150';
+    const spiderArray = await getSpiders(email);
 
     const css = `
         <style>
@@ -220,18 +220,10 @@ export async function ProfilePage(queryString) {
                     <div class="spiders-container">
                         ${spiderArray.map(spider => {
                         return `<spider-card
-                                        adoption-status="${spider.adoption_status}"
-                                        spider-name="${spider.spider_name}"
-                                        species="${spider.species_name}"
-                                        photo="${spider.spider_photo}"
-                                        ></spider-card>`
-                        }).join('')}
-                        ${spiderArray.map(spider => {
-                        return `<spider-card
-                                        adoption-status="${spider.adoption_status}"
-                                        spider-name="${spider.spider_name}"
-                                        species="${spider.species_name}"
-                                        photo="${spider.spider_photo}"
+                                        adoption-status="${spider.adoptionstatus}"
+                                        spider-name="${spider.name}"
+                                        species="${spider.species}"
+                                        photo="${spider.photo}"
                                         ></spider-card>`
                         }).join('')}
                     </div>

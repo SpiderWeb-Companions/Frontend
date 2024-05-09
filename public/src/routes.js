@@ -6,6 +6,7 @@ import { ProfilePage } from "./pages/Profile/Profile.js";
 import { SpiderListPage } from "./pages/SpiderList/SpiderListPage.js";
 import { SpiderProfile } from "./pages/SpiderProfile/SpiderProfile.js";
 import { SpiderAdoption } from "./pages/AdoptionPage/AdoptionPage.js";
+import { LogoutPage } from "./pages/Logout/LogoutPage.js";
 
 export const routes = {
   "": BasePage,
@@ -16,4 +17,5 @@ export const routes = {
   spiderprofile: SpiderProfile,
   browse: SpiderListPage,
   adoption: SpiderAdoption,
+  logout: LogoutPage,
 };

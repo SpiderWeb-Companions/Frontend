@@ -17,6 +17,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/variables.js', (req, res) => {
     const secretsContent = `
         const API_ENDPOINT = "${process.env.API_ENDPOINT}";
+        const AUTH_URL = "${process.env.AUTH_URL}";
+        const SCOPE = "${process.env.SCOPE}";
+        const CLIENT_ID = "${process.env.CLIENT_ID}";
+        const REDIRECT_URI ="${process.env.REDIRECT_URI}";
     `;
     res.type('application/javascript').send(secretsContent);
 });

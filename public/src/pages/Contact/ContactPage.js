@@ -118,7 +118,7 @@ export function ContactPage(queryString) {
                     <input id="message" name="message" required/>  
                 </div>
                 <div class="center-button">
-                    <button type="submit">Send Message</button>
+                    <button id="submit" type="submit">Send Message</button>
                 </div>
             </form>
         </main>
@@ -132,8 +132,14 @@ export function ContactPage(queryString) {
     const form = document.querySelector('form');
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
+        const submitButton = document.getElementById('submit');
+        submitButton.disabled = true;
         const formData = new FormData(event.target);
         const formValues = Object.fromEntries(formData.entries());
         await sendContactForm(formValues.name, formValues.email, formValues.message);
+        setTimeout(() => {
+            submitButton.disabled = false;
+        }, 5000);
+
     });
 }
