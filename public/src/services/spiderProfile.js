@@ -4,7 +4,7 @@ export async function getSpiderDetails(id) {
     headers: {
       "Content-Type": "application/json",
       'Accept': "*/*",
-      'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+      'authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
     },
   });
 
