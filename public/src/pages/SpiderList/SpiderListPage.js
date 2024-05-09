@@ -1,32 +1,41 @@
 import { html } from "../../_wrappers/html.js";
 import { enableRouting } from "../../_routing/start.js";
 import { SpiderCard } from "../../components/SpiderCard.js";
-import { getSpiders, getAdoptionStatuses, getSpecies } from "../../services/spiders.js";
+import {
+  getSpiders,
+  getAdoptionStatuses,
+  getSpecies,
+} from "../../services/spiders.js";
 
 export async function SpiderListPage(queryString) {
+  let search = "",
+    species = "",
+    status = "";
+  let spiderArray = await getSpiders(0, search, species, status);
+  const speciesArray = await getSpecies();
+  const statusArray = await getAdoptionStatuses();
 
-    let search = "", species = "", status = "";
-    let spiderArray = await getSpiders(0,search,species,status);
-    const speciesArray = await getSpecies();
-    const statusArray = await getAdoptionStatuses();  
-    
-    async function populateSpiders() {   
-        spiderArray = await getSpiders(0,search,species,status);
-        const spiders = document.getElementById('spiders-container');
-        spiders.innerHTML = "";
-        spiderArray.forEach(function(spider, index, array) {
-            spiders.appendChild(new DOMParser().parseFromString(
-                `<spider-card 
+  async function populateSpiders() {
+    spiderArray = await getSpiders(0, search, species, status);
+    const spiders = document.getElementById("spiders-container");
+    spiders.innerHTML = "";
+    spiderArray.forEach(function (spider, index, array) {
+      spiders.appendChild(
+        new DOMParser().parseFromString(
+          `<spider-card 
                     adoption-status="${spider.adoptionStatus}"  
                     spider-name="${spider.name}" 
                     species="${spider.species}"  
                     photo="${spider.photo}"
-                    ></spider-card>`
-                , 'text/html').body.firstChild);
-        });
-    }
+                    spider="${spider.id}"
+                    ></spider-card>`,
+          "text/html"
+        ).body.firstChild
+      );
+    });
+  }
 
-    const css = `
+  const css = `
     <style>
         main {
             font-family: "DM Sans", sans-serif;
@@ -143,9 +152,9 @@ export async function SpiderListPage(queryString) {
             font-size: 1.5em;
         }
 
-    </style>`
-     
-    const html = `
+    </style>`;
+
+  const html = `
     <main id="main">
         <form id="card-filters" class="filter-container">
             <section class="card-filter">
@@ -156,20 +165,25 @@ export async function SpiderListPage(queryString) {
                 <label class="filter-label">Species</label>
                 <select id="species" name="species" class="filter-control">
                     <option value="" selected>Any</option>
-                    ${speciesArray.map(species => {
+                    ${speciesArray
+                      .map((species) => {
                         return `<option value="${species.SpeciesName}">${species.SpeciesName}</option>`;
-                    }).join('')}
+                      })
+                      .join("")}
                 </select>
             </section>
             <section class="card-filter">
                 <label class="filter-label">Adoption Status</label>
                 <select id="status" name="adoption-status" class="filter-control">
                     <option value="" selected>Any</option>
-                    ${statusArray.map(status => {
+                    ${statusArray
+                      .map((status) => {
                         const word = status.status;
-                        const adoptionStatus = word.charAt(0).toUpperCase() + word.slice(1);
+                        const adoptionStatus =
+                          word.charAt(0).toUpperCase() + word.slice(1);
                         return `<option value="${status.status}">${adoptionStatus}</option>`;
-                    }).join('')}
+                      })
+                      .join("")}
                 </select>
             </section>
         </form>  
@@ -177,36 +191,51 @@ export async function SpiderListPage(queryString) {
         <section class="spiders">
         <section class="spiders-wrapper">
             <section id="spiders-container" class="spiders-container">
-                ${spiderArray.map(spider => {
+                ${spiderArray
+                  .map((spider) => {
                     return `<spider-card 
                             adoption-status="${spider.adoptionStatus}"  
                             spider-name="${spider.name}" 
                             species="${spider.species}"  
                             photo="${spider.photo}"
-                            ></spider-card>`
-                }).join('')}
+                            spider="${spider.id}"
+                            ></spider-card>`;
+                  })
+                  .join("")}
             </section>
         </section>
         </section>
-    </main>`
+    </main>`;
 
-    const app = document.getElementById('app');
-    app.innerHTML = "";
-    app.appendChild(new DOMParser().parseFromString(html, 'text/html').body.firstChild);
-    app.appendChild(new DOMParser().parseFromString(css, 'text/html').head.firstChild);
-    
-    const speciesElement = document.getElementById('species');
-    const statusElement = document.getElementById('status');
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  app.appendChild(
+    new DOMParser().parseFromString(html, "text/html").body.firstChild
+  );
+  app.appendChild(
+    new DOMParser().parseFromString(css, "text/html").head.firstChild
+  );
 
-    speciesElement.addEventListener("change", function() { 
-        species = document.getElementById('species').value;
-        populateSpiders();
-    }, false);
+  const speciesElement = document.getElementById("species");
+  const statusElement = document.getElementById("status");
 
-    statusElement.addEventListener("change", function() { 
-        status = document.getElementById('status').value;
-        populateSpiders();
-    }, false);
-    
-    enableRouting('a')
+  speciesElement.addEventListener(
+    "change",
+    function () {
+      species = document.getElementById("species").value;
+      populateSpiders();
+    },
+    false
+  );
+
+  statusElement.addEventListener(
+    "change",
+    function () {
+      status = document.getElementById("status").value;
+      populateSpiders();
+    },
+    false
+  );
+
+  enableRouting("a");
 }
