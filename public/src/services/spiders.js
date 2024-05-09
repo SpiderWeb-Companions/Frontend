@@ -1,10 +1,11 @@
 export async function getSpiders(result_limit, page, name, spiderSpecies, adoptionStatus) {
-    const result_offset = Math.max(0, result_limit * (page-1));
+    const result_offset = Math.max(0, result_limit * page);
     const response = await fetch(`${API_ENDPOINT}/api/all/spiders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': '*/*'
+            'Accept': '*/*',
+            'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
         },
         body: JSON.stringify({ 
             limit: result_limit,
@@ -24,7 +25,12 @@ export async function getSpiders(result_limit, page, name, spiderSpecies, adopti
 }
 
 export async function getSpecies() {
-    const response = await fetch(`${API_ENDPOINT}/api/species`);
+    const response = await fetch(`${API_ENDPOINT}/api/species`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+        }
+    });
 
     if (!response.ok) {
         throw new Error('Failed to fetch spiders');
@@ -35,7 +41,12 @@ export async function getSpecies() {
 }
 
 export async function getAdoptionStatuses() {
-    const response = await fetch(`${API_ENDPOINT}/api/status`);
+    const response = await fetch(`${API_ENDPOINT}/api/status`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+        }
+    });
 
     if (!response.ok) {
         throw new Error('Failed to fetch spiders');
@@ -43,4 +54,27 @@ export async function getAdoptionStatuses() {
 
     const data = await response.json();
     return data;
+}
+
+export async function getSpiderCount(name, spiderSpecies, adoptionStatus) {
+    const response = await fetch(`${API_ENDPOINT}/api/count`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': '*/*',
+            'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+        },
+        body: JSON.stringify({ 
+            search: name,
+            species: spiderSpecies,
+            status: adoptionStatus
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch spiders');
+    }
+
+    const data = await response.json();
+    return data.count;
 }
