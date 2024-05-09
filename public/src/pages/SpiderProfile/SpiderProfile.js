@@ -4,9 +4,10 @@ import { getSpiderDetails } from "../../services/spiderProfile.js";
 
 export async function SpiderProfile(queryString) {
   let spiderDetails = '';
+  let id = -1;
   if (queryString) {
     const params = new URLSearchParams(queryString);
-    let id = params.get('id')
+    id = params.get('id')
     spiderDetails = await getSpiderDetails(id);
   }
 
@@ -184,7 +185,7 @@ export async function SpiderProfile(queryString) {
         <main>
             <section class="spider-picture-section">
                 <img class="spider-pic" src="${spiderDetails.photo}" alt="Spider Picture">
-                <button class="button">Adopt Me</button>
+                <button id="adoptMeButton" class="button">Adopt Me</button>
             </section>
 
             <section class="spider-information-section">
@@ -257,10 +258,11 @@ export async function SpiderProfile(queryString) {
 
   enableRouting("a");
 
-  const button = document.querySelector("button");
+  const button = document.getElementById("adoptMeButton");
   button.addEventListener("click", async (event) => {
-    if (adoptionStatus === "adopted") return;
-    event.preventDefault();
-    navigate(`adoption/?id=${id}`);
+    if (adoptionStatus !== "adopted") {
+      event.preventDefault();
+      navigate(`adoption/?id=${id}`);
+    }
   });
 }

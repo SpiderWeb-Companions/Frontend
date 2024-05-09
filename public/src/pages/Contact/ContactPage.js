@@ -5,11 +5,10 @@ export function ContactPage(queryString) {
     const css = `
         <style>
             main {
-                min-height: 90vh;
-                max-height: 90vh;
+                height: 90vh;
+                width: 100vw;
                 background: rgb(255,174,188);
                 background: linear-gradient(0deg, rgba(255,174,188,1) 0%, rgba(255,255,255,1) 80%);
-                height: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -20,7 +19,7 @@ export function ContactPage(queryString) {
             
             .title1,
             .title2 {
-                font-size:4rem;
+                font-size:4vw;
                  font-family: "DM Sans", sans-serif;
             }
             
@@ -49,7 +48,7 @@ export function ContactPage(queryString) {
             }
     
             label {
-                font-size: 1.5rem;
+                font-size: 2vw;
                 font-weight: bold;
                 margin-bottom: 0.3rem;
                 padding-bottom: 0.4rem;
@@ -87,7 +86,7 @@ export function ContactPage(queryString) {
                 border: none;
                 cursor: pointer;
                 border-radius: 1.875rem;
-                font-size: 1rem;
+                font-size: 0.8rem;
             }
             
             .center-button {
