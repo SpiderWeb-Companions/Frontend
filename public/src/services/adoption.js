@@ -12,7 +12,8 @@ export async function submitAdoptionForm (Email, AdoptionReason, Comments, Spide
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': '*/*'
+                'Accept': '*/*',
+                'authorization': `${sessionStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(requestBody)
         });
