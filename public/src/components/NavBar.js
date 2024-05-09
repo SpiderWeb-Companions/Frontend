@@ -97,31 +97,39 @@ export class NavBar extends WebComponent {
     }
     </style>
   `;
-  // is there a way to determine the current url/page we are on ?
-  // yes
-  // window.location.href.split("/")[window.location.href.split("/").length - 1]
   static properties = {};
   render() {
+    const loginButton = this.shadowRoot.querySelector("button")
+    loginButton.addEventListener("click", async (event) => {
+        event.preventDefault();
+        navigate("logout");
+    });
   }
 
   static get template() {
     const template = document.createElement('template');
-    template.innerHTML = `
-            ${NavBar.css}
-            <header>
-                <img class="logo" src="/assets/logo.svg" alt="Logo">
-                <h1>SpiderWeb Companions</h1>
-                <nav>
-                    <ul>
-                        <li><a href="/home">Home</a></li>
-                        <li><a href="/browse">Browse</a></li>
-                        <li><a href="/profile">My Profile</a></li>
-                        <li><a href="/contact">Contact Us</a></li>
-                    </ul>
-                    <button class="logout">Logout</button>
-                </nav>
-            </header>
-        `;
+    const currentUrl = window.location.href.split("/")[window.location.href.split("/").length - 1];
+    if (currentUrl != 'login' || currentUrl != 'logout') {
+      template.innerHTML = `
+              ${NavBar.css}
+              <header>
+                  <img class="logo" src="/assets/logo.svg" alt="Logo">
+                  <h1>SpiderWeb Companions</h1>
+                  <nav>
+                      <ul>
+                          <li><a href="/home">Home</a></li>
+                          <li><a href="/browse">Browse</a></li>
+                          <li><a href="/profile">My Profile</a></li>
+                          <li><a href="/contact">Contact Us</a></li>
+                      </ul>
+                      <button class="logout">Logout</button>
+                  </nav>
+              </header>
+          `;
+    } else {
+      template.innerHTML = ``
+    }
+    
     return template;
   }
 }

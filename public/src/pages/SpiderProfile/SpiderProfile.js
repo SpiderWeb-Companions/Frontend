@@ -11,46 +11,53 @@ export async function SpiderProfile(queryString) {
   }
 
   const css = `
-        <style>
-        .status-pill {
-            position: relative;
-            width: 6.5em;
-            margin: 0 0 0 auto;
-            padding: 0.4em 0.5em;
-            border-radius: 0 1em;
-            font-weight: bold;
-        }
-        .status-pending {
-            background-color: #abc0ed;
-            color: #193269;
-        }
+    <style>
+      .status-pill {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+      }
+      .status-pill--text {
+        padding: 0.4em 0.5em;
+        border-radius: 0 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 6.5em;
+        font-weight: bold;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.8rem;
+        margin: 0;
+      }
+      .status-pending {
+          background-color: #abc0ed;
+          color: #193269;
+      }
 
-        .status-available {
-            background-color: #a7ebc3;
-            color: #1d6c3d;
-        }
+      .status-available {
+          background-color: #a7ebc3;
+          color: #1d6c3d;
+      }
 
-        .status-adopted {
-            background-color: #ffaebc;
-            color: #541520;
-        }
+      .status-adopted {
+          background-color: #ffaebc;
+          color: #541520;
+      }
         main {
-            min-height: 90vh;
-            max-height: 90vh;
-            min-width: 100vw;
-            max-width: 100vw;
-            height: 100%;
-            width: 100%;
+            height: 88vh;
+            width: 100vw;
             display: flex;
             overflow: hidden;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            overflow: auto;
           }
         .spider-picture-section {
           display: flex;
           flex-direction: column;
           width: 50%;
+          min-width: 31.25rem;
           justify-content: center;
           align-items: center;
           gap: 2vh;
@@ -59,22 +66,32 @@ export async function SpiderProfile(queryString) {
             min-width: 40%;
             max-width: 70%;
             min-height: 50%;
-            padding: 2vh'
+            padding: 2vh;
           }
-        button {
-            min-width: 18vw;
-            min-height: 6vh;
-            background-color: #a7ebe5;
-            color: #15524d;
-            font-size: 0.8rem;
-            font-weight: bold;
-            font-family: "DM Sans", sans-serif;
-            border: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 2rem;
-          }
+        .button {
+          min-width: 18vw;
+          min-height: 6vh;
+          background-color: #a7ebe5;
+          color: #15524d;
+          font-size: 0.8rem;
+          font-weight: bold;
+          font-family: "DM Sans", sans-serif;
+          border: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 2rem;
+        }
+        .button:hover {
+          cursor: pointer;
+        }
+        .button--disabled {
+          background-color: #D6D6D6;
+          color: #4C4C4C;
+        }
+        .button--disabled:hover {
+          cursor: not-allowed;
+        }
         .spider-information-section {
            width: 40%;
            height: 80%;
@@ -85,6 +102,7 @@ export async function SpiderProfile(queryString) {
            gap: 2vh;
            align-items: center;
            padding: 2vh;
+           min-width: 20rem;
         }
         h1 {
             display: flex;
@@ -117,7 +135,6 @@ export async function SpiderProfile(queryString) {
           font-weight: 600;
           font-family: "DM Sans", sans-serif;
           margin: 0;
-          max-width: 80%;
         }
         .spider-info-text {
           display: flex;
@@ -141,17 +158,25 @@ export async function SpiderProfile(queryString) {
         .info-squares-container {
           display: flex;
           justify-content: space-between;
+          align-items: flex-end;
           width: 100%;
+          height: 20vh;
+          gap: 1vw;
         }
         .info-square {
           display: flex;
           flex-direction: column;
           padding: 2vh;
-          width: 7vw;
-          height: 7vh;
+          height: 30%;
+          width: 100%;
           gap: 1vh;
           background-color: #FFAEBC;
-          border-radius: 25px;
+          border-radius: 1rem;
+        }
+        .text-center {
+          align-items: center;
+          justify-content: center;
+          width: 100%;
         }
         </style>
     `;
@@ -159,11 +184,13 @@ export async function SpiderProfile(queryString) {
         <main>
             <section class="spider-picture-section">
                 <img class="spider-pic" src="${spiderDetails.photo}" alt="Spider Picture">
-                <button>Adopt Me</button>
+                <button class="button">Adopt Me</button>
             </section>
 
             <section class="spider-information-section">
-                <p class="status-pill"></p>
+                <article class="status-pill">
+                  <p class="status-pill--text">${spiderDetails.adoptionStatus}</p>
+                </article>
                 <h1>${spiderDetails.name}</h1>
                 <article class="rescue-story">
                     <h2 class="spider-info-header">Rescue Story:</h2>
@@ -191,20 +218,20 @@ export async function SpiderProfile(queryString) {
                 </article>
                 <article class="info-squares-container">
                     <article class="info-square">
-                        <h2 class="spider-info-header">Species:</h2>
-                        <p class="spider-info-text">${spiderDetails.SpeciesName}</p>
+                        <h2 class="spider-info-header text-center">Species:</h2>
+                        <p class="spider-info-text text-center">${spiderDetails.SpeciesName}</p>
                     </article>
                     <article class="info-square">
-                        <h2 class="spider-info-header">Age:</h2>
-                        <p class="spider-info-text">${spiderDetails.age}</p>
+                        <h2 class="spider-info-header text-center">Age:</h2>
+                        <p class="spider-info-text text-center">${spiderDetails.age}</p>
                     </article>
                     <article class="info-square">
-                        <h2 class="spider-info-header">Sex:</h2>
-                        <p class="spider-info-text">${spiderDetails.gender}</p>
+                        <h2 class="spider-info-header text-center">Sex:</h2>
+                        <p class="spider-info-text text-center">${spiderDetails.gender}</p>
                     </article>
                     <article class="info-square">
-                        <h2 class="spider-info-header">Health:</h2>
-                        <p class="spider-info-text">${spiderDetails.heatlh}</p>
+                        <h2 class="spider-info-header text-center">Health:</h2>
+                        <p class="spider-info-text text-center">${spiderDetails.heatlh}</p>
                     </article>
                 </article>
             </section>
@@ -218,10 +245,21 @@ export async function SpiderProfile(queryString) {
   app.appendChild(
     new DOMParser().parseFromString(css, "text/html").head.firstChild
   );
+
+  const statusPill = document.querySelector(".status-pill--text");
+  const adoptionStatus = spiderDetails.adoptionStatus;
+  statusPill.classList.add(`status-${adoptionStatus.toLowerCase()}`);
+  const adopted = document.querySelector(".button");
+  if (adoptionStatus === "adopted") {
+    console.log('adopted');
+    adopted.classList.add("button--disabled");
+  }
+
   enableRouting("a");
 
   const button = document.querySelector("button");
   button.addEventListener("click", async (event) => {
+    if (adoptionStatus === "adopted") return;
     event.preventDefault();
     navigate(`adoption/?id=${id}`);
   });
