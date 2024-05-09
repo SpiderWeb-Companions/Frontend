@@ -1,13 +1,14 @@
 import { WebComponent } from "../_wrappers/WebComponent.js";
+import { navigate } from "../_routing/start.js";
 import { css } from "../_wrappers/css.js";
 import { html } from "../_wrappers/html.js";
 
 export class SpiderCard extends WebComponent {
-    identifier = 'spider-card';
-    constructor() {
-        super();
-    }
-    static css = css`
+  identifier = "spider-card";
+  constructor() {
+    super();
+  }
+  static css = css`
     <style>
         main {
             font-family: "DM Sans", sans-serif;
@@ -77,20 +78,21 @@ export class SpiderCard extends WebComponent {
             color: #541520;
         }
         </style>
-    `
+    `;
 
-    static properties = {
-        'adoption-status' : {type : String},
-        'spider-name' : {type: String},
-        'species' : {type: String},
-        'photo' : {type: String},
-    }
+  static properties = {
+    "adoption-status": { type: String },
+    "spider-name": { type: String },
+    species: { type: String },
+    spider: { type: String },
+    photo: { type: String },
+  };
 
-    static get template() {
-        const template = document.createElement('template');
-        template.innerHTML = `
+  static get template() {
+    const template = document.createElement("template");
+    template.innerHTML = `
             ${SpiderCard.css}
-            <main>
+            <main id="card" class='card-class'>
                 <p class="status-pill"></p>
                 <section class="card-content">
                     <h2 id="spider-name"></h2>
@@ -101,8 +103,8 @@ export class SpiderCard extends WebComponent {
                 </section>
             </main>
         `;
-        return template;
-    }
+    return template;
+  }
 
   render() {
     const statusPill = this.shadowRoot.querySelector(".status-pill");
@@ -115,14 +117,18 @@ export class SpiderCard extends WebComponent {
     if (displaySpiderName.length > 15) displaySpiderName = displaySpiderName.substring(0,12).trim() + "...";
     spiderName.innerText = displaySpiderName;
 
-        const speciesInfo = this.shadowRoot.querySelector('#species');
-        speciesInfo.innerText = this.getAttribute('species');
+    const speciesInfo = this.shadowRoot.querySelector("#species");
+    speciesInfo.innerText = this.getAttribute("species");
 
-        const img = this.shadowRoot.querySelector('img');
-        img.src = this.getAttribute('photo');
-    }
+    const img = this.shadowRoot.querySelector("img");
+    img.src = this.getAttribute("photo");
 
+    const id = this.getAttribute("spider");
+    const btn = this.shadowRoot.getElementById("card");
+    btn.addEventListener("click", () => navigate(`spiderprofile/?id=${id}`));
+  }
+
+  listen() {}
 }
 
-
-customElements.define("spider-card", SpiderCard)
+customElements.define("spider-card", SpiderCard);

@@ -96,6 +96,37 @@ export function ContactPage(queryString) {
                 align-items: center;
                 justify-content: center;
             }
+            
+            .toast {
+                position: fixed;
+                bottom: 1.25rem;
+                right: 1.25rem;
+                background-color: #333;
+                color: #fff;
+                padding: 0.625rem;
+                border-radius: 0.313rem;
+                box-shadow: 0 0.125rem 0.313rem rgba(0, 0, 0, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+            }
+
+            .toast.show {
+                opacity: 1;
+            }
+
+            .toast-icon svg {
+                width: 1.875rem;
+                height: 1.25rem;
+                fill: #fff;
+            }
+
+            .toast-content {
+                font-family: Arial, sans-serif;
+                font-size: 0.875rem;
+            }
         </style>
     `;
     const html = `
@@ -118,9 +149,18 @@ export function ContactPage(queryString) {
                     <input id="message" name="message" required/>  
                 </div>
                 <div class="center-button">
-                    <button type="submit">Send Message</button>
+                    <button id="submit" type="submit">Send Message</button>
                 </div>
             </form>
+            <div class="toast" id="toast">
+                <div class="toast-content"></div>
+                <div class="toast-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M15.795 8.342l-5.909 9.545a1 1 0 0 1-1.628 0l-3.182-4.909a1 1 0 0 1 1.629-1.165l2.556 3.953L14.165 7.51a1 1 0 0 1 1.63 1.165z"></path>
+                    </svg>
+                </div>
+            </div>
         </main>
     `;
     const app = document.getElementById('app');
@@ -132,8 +172,30 @@ export function ContactPage(queryString) {
     const form = document.querySelector('form');
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
+        const submitButton = document.getElementById('submit');
+        submitButton.disabled = true;
         const formData = new FormData(event.target);
         const formValues = Object.fromEntries(formData.entries());
         await sendContactForm(formValues.name, formValues.email, formValues.message);
+        setTimeout(() => {
+            submitButton.disabled = false;
+        }, 5000);
+        form.reset();
+        showToast('Your message has been sent successfully!');
+
     });
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        if (toast) {
+            const toastContent = toast.querySelector('.toast-content');
+            if (toastContent) {
+                toastContent.textContent = message;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+        }
+    }
 }

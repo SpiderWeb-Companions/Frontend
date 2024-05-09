@@ -1,4 +1,5 @@
-export async function getSpiders(page, name, spiderSpecies, adoptionStatus) {
+export async function getSpiders(result_limit, page, name, spiderSpecies, adoptionStatus) {
+    const result_offset = Math.max(0, result_limit * (page-1));
     const response = await fetch(`${API_ENDPOINT}/api/all/spiders`, {
         method: 'POST',
         headers: {
@@ -6,7 +7,8 @@ export async function getSpiders(page, name, spiderSpecies, adoptionStatus) {
             'Accept': '*/*'
         },
         body: JSON.stringify({ 
-            limit: 3,
+            limit: result_limit,
+            offset: result_offset,
             search: name,
             species: spiderSpecies,
             status: adoptionStatus

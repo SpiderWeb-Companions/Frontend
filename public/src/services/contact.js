@@ -5,15 +5,13 @@ export async function sendContactForm (name, email, message) {
         message
     };
 
-    console.table(requestBody);
-    console.log(API_ENDPOINT);
-
     try {
         const response = await fetch(`${API_ENDPOINT}/api/contact`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': '*/*'
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(requestBody)
         });
