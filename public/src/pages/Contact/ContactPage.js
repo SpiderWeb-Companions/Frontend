@@ -176,7 +176,7 @@ export function ContactPage(queryString) {
         submitButton.disabled = true;
         const formData = new FormData(event.target);
         const formValues = Object.fromEntries(formData.entries());
-        // await sendContactForm(formValues.name, formValues.email, formValues.message);
+        await sendContactForm(formValues.name, formValues.email, formValues.message);
         setTimeout(() => {
             submitButton.disabled = false;
         }, 5000);
