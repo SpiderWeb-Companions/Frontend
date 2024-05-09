@@ -245,7 +245,6 @@ app.appendChild(
 
 const speciesElement = document.getElementById("species");
 const statusElement = document.getElementById("status");
-const searchButton = document.getElementById("search-button");
 
 speciesElement.addEventListener(
     "change",
@@ -278,7 +277,7 @@ form.addEventListener(
         }     
     }
 );
-// search
+
 form.addEventListener(
     'reset', 
     async (event) => {
