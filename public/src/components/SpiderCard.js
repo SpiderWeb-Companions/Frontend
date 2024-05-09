@@ -18,7 +18,7 @@ export class SpiderCard extends WebComponent {
             border-radius: 1em;
             width: 100%;
             min-width: 16.25rem;
-            max-width: 18rem;
+            max-width: 16.25rem;
             min-height: 15rem;
             max-height: 15rem;
             text-align: center;
@@ -109,11 +109,13 @@ export class SpiderCard extends WebComponent {
   render() {
     const statusPill = this.shadowRoot.querySelector(".status-pill");
     const adoptionStatus = this.getAttribute("adoption-status");
-    statusPill.innerText = adoptionStatus;
+    statusPill.innerText = adoptionStatus.charAt(0).toUpperCase() + adoptionStatus.slice(1).toLowerCase()
     statusPill.classList.add(`status-${adoptionStatus.toLowerCase()}`);
 
     const spiderName = this.shadowRoot.querySelector("#spider-name");
-    spiderName.innerText = this.getAttribute("spider-name");
+    let displaySpiderName = this.getAttribute("spider-name");
+    if (displaySpiderName.length > 15) displaySpiderName = displaySpiderName.substring(0,12).trim() + "...";
+    spiderName.innerText = displaySpiderName;
 
     const speciesInfo = this.shadowRoot.querySelector("#species");
     speciesInfo.innerText = this.getAttribute("species");
