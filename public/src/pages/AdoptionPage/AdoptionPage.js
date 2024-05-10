@@ -358,8 +358,8 @@ export async function SpiderAdoption(queryString) {
     }
 
     const checkAllValid = () => {
-      var all_true = true;
-      for (var s in fieldsAreValid) {
+      let all_true = true;
+      for (let s in fieldsAreValid) {
           if (!fieldsAreValid[s]) {
               all_true = false;
               break;
