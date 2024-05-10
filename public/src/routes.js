@@ -9,7 +9,7 @@ import { SpiderAdoption } from "./pages/AdoptionPage/AdoptionPage.js";
 import { LogoutPage } from "./pages/Logout/LogoutPage.js";
 
 export const routes = {
-  "": BasePage,
+  "": HomePage,
   home: HomePage,
   login: LoginPage,
   contact: ContactPage,
