@@ -63,9 +63,9 @@ export function enableRouting(element) {
     });
 }
 
-navigate('contact');
-// if (await isAuthenticated()){
-//     navigate(firstRoute);
-// }else {
-//     navigate('login') //TODO: perhaps a navigation param "navigation message" to tell the user why they were navigated would be good here
-// }                     // Or perhaps a redirect location for the case of login
+// navigate('contact');
+if (await isAuthenticated()){
+    navigate(firstRoute);
+}else {
+    navigate('login') //TODO: perhaps a navigation param "navigation message" to tell the user why they were navigated would be good here
+}                     // Or perhaps a redirect location for the case of login
