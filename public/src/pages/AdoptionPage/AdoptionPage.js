@@ -188,6 +188,7 @@ export async function SpiderAdoption(queryString) {
             background-color: #fff;
             width: max-content;
             font-weight: 500;
+            font-family: "DM Sans", sans-serif;
         }
         
         .card-filter {
@@ -215,7 +216,7 @@ export async function SpiderAdoption(queryString) {
         }
         .button--disabled:hover {
           cursor: not-allowed;
-        
+        }
         .error-label {
             display: flex;
             justify-content: center;
@@ -231,7 +232,7 @@ export async function SpiderAdoption(queryString) {
         <main>
           <section class="spider-information-section-a">
             <article class="status-pill">
-              <p class="status-pill--text">${spiderDetails.adoptionStatus}</p>
+              <p class="status-pill--text" id="status-pill--text">${spiderDetails.adoptionStatus}</p>
             </article>
             <h1>${spiderDetails.name}</h1>
             <article class="info-row-container-a">
@@ -277,7 +278,7 @@ export async function SpiderAdoption(queryString) {
           </section>
           <form class="adoption-form-section">
             <section class="card-filter">
-              <label class="filter-label">First name</label>
+              <label class="filter-label">Name</label>
               <input class="filter-control" type="text" id="first-name" value="${name}">
               <label class="error-label" for="first-name"></label>
             </section>
@@ -304,8 +305,9 @@ export async function SpiderAdoption(queryString) {
             <section class="card-filter">
               <label class="filter-label">Comments</label>
               <input class="filter-control" type="text" id="comments">
+              <label class="error-label" for="comments"></label>
             </section>
-            <button id="submit-button">Submit</button>
+            <button id="submit-button" class="button--disabled">Submit</button>
             <p class="error-label" id="feedback"></p>
           </form>
       </main>
@@ -324,7 +326,6 @@ export async function SpiderAdoption(queryString) {
     enableRouting("a");
 
     const firstName = document.getElementById("first-name");
-    const lastName = document.getElementById("last-name");
     const reason = document.getElementById("reason");
     const address=  document.getElementById("address");
     const experience=  document.getElementById("experience");
@@ -347,45 +348,86 @@ export async function SpiderAdoption(queryString) {
         } else if (event.srcElement.value.length>250){
             label.innerHTML ="This field has a max length of 250 characters"
             fieldsAreValid[event.srcElement.id] =false;
+        }else{
+          label.innerHTML =""
+          fieldsAreValid[event.srcElement.id] =true;
         }
-        fieldsAreValid[event.srcElement.id] =true;
+        checkAllValid();
 
-        //if invalid
-        //const btn = document.querySelector(".button");
-        //btn.classList.add("button--disabled");
 
+    }
+
+    const checkAllValid = () => {
+      var all_true = true;
+      for (var s in fieldsAreValid) {
+          if (!fieldsAreValid[s]) {
+              all_true = false;
+              break;
+          }
+      }
+      const btn = document.getElementById("submit-button");
+      if (!all_true){
+        btn.classList.add("button--disabled");
+        return false;
+      } else {
+        btn.classList.remove("button--disabled");
+        return true;
+      }
     }
 
     firstName.addEventListener("change", async (event) => {
         validate(event)
       });
-  
+    reason.addEventListener("change", async (event) => {
+      validate(event)
+    });
+    address.addEventListener("change", async (event) => {
+      validate(event)
+    });
+    experience.addEventListener("change", async (event) => {
+      validate(event)
+    });
+    comments.addEventListener("change", async (event) => {
+      validate(event)
+    });
+
+    
+    const provideFeedback = (response)=>{
+      let feedback=  document.getElementById("feedback");
+      feedback.innerHTML="";
+      let htmlFeedback ="";
+      if (response.status == 200)
+      {
+          htmlFeedback = "Success"
+          navigate('home');          
+      }
+      else{
+          htmlFeedback = "Sorry something went wrong in sending your form to the server. Please use the contact us form to let us know if this issue persists."
+      }
+      feedback.appendChild(
+          new DOMParser().parseFromString(htmlFeedback, "text/html").body.firstChild
+        );
+    }
+
+
     const button = document.getElementById("submit-button");
     button.addEventListener("click", async (event) => {
       event.preventDefault();
-      let response = submitAdoptionForm(email, reason.value, comments.value, id)
-      provideFeedback(response);
+      let isValid = checkAllValid();
+      if (isValid) {
+        button.classList.add("button--disabled");
+        let response = await submitAdoptionForm(email, reason.value, comments.value, id);
+        button.classList.remove("button--disabled");
+        provideFeedback(response);
+      } else{
+        let feedback=  document.getElementById("feedback");
+        feedback.innerHTML="Please fill in all fields";
+      }
+
+
     });
 
-    const statusPill = document.querySelector(".status-pill--text");
+    const statusPill = document.getElementById("status-pill--text");
     const adoptionStatus = spiderDetails.adoptionStatus;
     statusPill.classList.add(`status-${adoptionStatus.toLowerCase()}`);
-
-    const provideFeedback = (response)=>{
-        let feedback=  document.getElementById("feedback");
-        feedback.innerHTML="";
-        let htmlFeedback ="";
-        if (response.status == 200)
-        {
-            htmlFeedback = "Success"
-            navigate('home');          
-        }
-        else{
-            htmlFeedback = "Sorry something went wrong"
-        }
-        feedback.appendChild(
-            new DOMParser().parseFromString(htmlFeedback, "text/html").body.firstChild
-          );
-    }
   }
-  
