@@ -133,33 +133,33 @@ export function ContactPage(queryString) {
             <h1 class="title1">Have Some Questions?</h1>
             <h1 class="title2">Contact Us</h1>
             <form>
-                <div class="form-group">
+                <section class="form-group">
                     <label for="name">Name: </label>
                     <input type="text" id="name" name="name" required>
-                </div>
+                </section>
     
-                <div class="form-group">
+                <section class="form-group">
                     <label for="email">Email: </label>
                     <input type="email" id="email" name="email" required>
-                </div>
+                </section>
     
-                <div class="form-group">
+                <section class="form-group">
                     <label for="message">Message: </label>
                     <input id="message" name="message" required/>  
-                </div>
-                <div class="center-button">
+                </section>
+                <section class="center-button">
                     <button id="submit" type="submit">Send Message</button>
-                </div>
+                </section>
             </form>
-            <div class="toast" id="toast">
-                <div class="toast-content"></div>
-                <div class="toast-icon">
+            <article class="toast" id="toast">
+                <section class="toast-content"></section>
+                <section class="toast-icon">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M15.795 8.342l-5.909 9.545a1 1 0 0 1-1.628 0l-3.182-4.909a1 1 0 0 1 1.629-1.165l2.556 3.953L14.165 7.51a1 1 0 0 1 1.63 1.165z"></path>
                     </svg>
-                </div>
-            </div>
+                </section>
+            </article>
         </main>
     `;
     const app = document.getElementById('app');

@@ -63,7 +63,7 @@ export function enableRouting(element) {
     });
 }
 
-
+// navigate('contact');
 if (await isAuthenticated()){
     navigate(firstRoute);
 }else {
