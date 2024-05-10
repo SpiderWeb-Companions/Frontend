@@ -284,7 +284,7 @@ export async function SpiderAdoption(queryString) {
             </section>
             <section class="card-filter">
               <label class="filter-label">Email Address</label>
-              <input class="filter-control" type="text" id="email-address" value="${email}">
+              <input class="filter-control" type="text" id="email-address" value="${email}" disabled>
               <label class="error-label" for="email-address"></label>
             </section>
             <section class="card-filter">
